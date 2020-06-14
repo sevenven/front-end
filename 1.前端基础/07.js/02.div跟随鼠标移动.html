@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>div跟随鼠标移动</title>
+		<style type="text/css">
+			body{
+				height: 1000px;
+			}
+			#box1{
+				width: 100px;
+				height: 100px;
+				background-color: red;
+				/*
+				 * 开启box1的绝对定位
+				 */
+				position: absolute;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box1"></div>
+		<script type="text/javascript">
+			var box1 = document.getElementById("box1");
+			document.onmousemove = function(event){
+				event = event || window.event;
+				/*相对于可见窗口的位置
+				var left = event.clientX;
+				var top = event.clientY*/
+				/*相对于整个页面的位置 IE8及以下不支持*/
+				/*var left = event.pageX;
+				var top = event.pageY*/
+				/*系统滚动条 但是说好的滚动条既不在html上也不在body上 在文档上呢？？！！*/
+				var sl = document.body.scrollLeft || document.documentElement.scrollLeft;
+				var st = document.body.scrollTop || document.documentElement.scrollTop;
+				var left = event.clientX + sl;
+				var top = event.clientY + st;
+				/*相对于整个页面偏移*/
+				box1.style.left = left + "px";
+				box1.style.top = top + "px";
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>检测低版本ie</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			console.log(isIE(8))
+			// 6 7 8 9
+			function isIE(version){
+				var b = document.createElement("b");
+				b.innerHTML="<!--[if IE " + version + "]<i></i><[end if]!-->"
+				return b.getElementsByTagName("i").length == 1;
+			}
+		</script>
+	</body>
+</html>

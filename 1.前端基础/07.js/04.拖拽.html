@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>拖拽</title>
+		<style type="text/css">
+			#box1{
+				position: absolute;
+				background-color: red;
+				width: 100px;
+				height: 100px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box1"></div>
+		<script type="text/javascript">
+			window.onload = function(){
+				
+				var box1 = document.getElementById("box1")
+				drag(box1)
+				
+				function drag(obj){
+					
+					obj.onmousedown = function(event){
+						
+						// IE8将页面的鼠标事件都捕获到obj上 别的元素不会再触发事件
+						obj.setCapture && obj.setCapture();
+						
+						event = event || window.event;
+						// 计算鼠标相对于元素的偏移量
+						var ol = event.clientX - obj.offsetLeft;
+						var ot = event.clientY - obj.offsetTop;
+						
+						document.onmousemove = function(event){
+							event = event || window.event;
+							// 当鼠标移动时被拖拽元素跟随鼠标移动 onmousemove
+							// 获取鼠标的坐标
+							var left = event.clientX - ol;
+							var top = event.clientY - ot;
+							
+							// 限制范围及磁性吸附
+							if(left < 10){
+								left = 0
+							}
+							if(left > document.documentElement.clientWidth - obj.offsetWidth - 10){
+								left = document.documentElement.clientWidth - obj.offsetWidth
+							}
+							if(top < 10){
+								top = 0
+							}
+							if(top > document.documentElement.clientHeight - obj.offsetHeight - 10){
+								top = document.documentElement.clientHeight - obj.offsetHeight
+							}
+							// 碰撞检测
+							
+							// 修改obj的位置
+							obj.style.left = left+"px";
+							obj.style.top = top+"px";
+						}
+						
+						document.onmouseup = function(){
+							document.onmousemove = null;
+							document.onmouseup = null;
+							//当鼠标松开时，取消对事件的捕获
+							obj.releaseCapture && obj.releaseCapture();
+						}
+						
+						/*
+						 * 当我们拖拽一个网页中的内容时，浏览器会默认去搜索引擎中搜索内容，
+						 * 	此时会导致拖拽功能的异常，这个是浏览器提供的默认行为，
+						 * 	如果不希望发生这个行为，则可以通过return false来取消默认行为
+						 * 
+						 * 但是这招对IE8不起作用
+						 */
+						return false;
+					}
+				}
+				
+				
+			}
+		</script>
+	</body>
+</html>

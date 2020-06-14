@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>时钟</title>
+		<style id="css">
+			#wrap{
+				position: relative;
+				width: 200px;
+				height: 200px;
+				border: 1px solid #000;
+				margin: 100px auto;
+				border-radius: 50%;
+			}
+			#list{
+				list-style: none;
+			}
+			#list li{
+				position: absolute;
+				left: 99px;
+				top: 0;
+				width: 2px;
+				height: 8px;
+				background:#000;
+				transform-origin: center 100px; 
+			}
+			/*#list li:nth-of-type(1){transform: rotate(0);}*/
+			#list li:nth-of-type(5n+1){
+				height: 12px;
+			}
+			#hour{
+				position: absolute;
+				left: 97px;
+				top: 65px;
+				width: 6px;
+				height: 35px;
+				background: #000;
+				transform-origin: center bottom;
+			}
+			#min{
+				position: absolute;
+				left: 98px;
+				top: 45px;
+				width: 4px;
+				height: 55px;
+				background: gray;
+				transform-origin: center bottom;
+			}
+			#sec{
+				position: absolute;
+				left: 99px;
+				top: 25px;
+				width: 2px;
+				height: 75px;
+				background: red;
+				transform-origin: center bottom;
+			}
+			#ioc{
+				position: absolute;
+				left: 90px;
+				top: 90px;
+				width: 20px;
+				height: 20px;
+				background: pink;
+				border-radius: 70%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<ul id="list"></ul>
+			<div id="hour"></div>
+			<div id="min"></div>
+			<div id="sec"></div>
+			<div id="ioc"></div>
+		</div>
+	</body>
+	<script>
+		var listNode =document.getElementById("list");
+		listNode.style.display="none";
+		var cssNode =document.getElementById("css");
+		var liText="";
+		var cssText="";
+		for(var i=0;i<60;i++){
+			liText+="<li></li>";
+			cssText+="#list li:nth-of-type("+(i+1)+"){transform: rotate("+6*i+"deg);}"
+		}
+		listNode.innerHTML=liText;
+		listNode.style.display="block";
+		cssNode.innerHTML+=cssText;
+		
+		
+		var hourNode =document.getElementById("hour");
+		var minNode =document.getElementById("min");
+		var secNode =document.getElementById("sec");
+		
+		auto();
+		setInterval(auto,1000);
+		function auto(){
+			var date =new Date();
+			var sec =date.getSeconds();
+			var min =date.getMinutes()+sec/60;
+			var hour =date.getHours()+min/60;
+			
+			hourNode.style.transform="rotate("+30*hour+"deg)";
+			minNode.style.transform="rotate("+6*min+"deg)";
+			secNode.style.transform="rotate("+6*sec+"deg)";
+		}
+		
+	</script>
+</html>

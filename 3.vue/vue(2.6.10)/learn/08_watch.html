@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue源码剖析</title>
+  <script src="../dist/vue.js"></script>
+</head>
+<body>
+  <div id="demo">
+    <h1>watch</h1>
+    <p>{{name}}</p>
+    <button @click="change">change</button>
+    <button @click="changeLast">change last name</button>
+  </div>
+  <script>
+    const app = new Vue({
+      el: '#demo',
+      data: {
+        firstName: 'zanzan',
+        lastName: 'bobo',
+        useless: 0,
+        nested: {
+          a: {
+            b: 'bjyx'
+          }
+        }
+      },
+      computed: {
+        name () {
+          if (this.useless > 0) 
+            return this.firstName + ', ' + this.lastName
+          return 'please click change';
+        }
+      },
+      watch: {
+        useless (newVal) {
+          console.log('useless', newVal);
+        },
+        name: {
+          immediate: true,
+          handler (newVal) {
+            console.log('name:', newVal)
+          }
+        },
+        nested: {
+          deep: true,
+          handler (newVal) {
+            console.log('nested', newVal.a.b)
+          }
+        }
+      },
+      methods: {
+        change () {
+          this.useless++;
+          this.nested.a.b = 'szd';
+        },
+        changeLast () {
+          this.lastName = 'bobozi'
+        }
+      }
+    });
+  </script>
+</body>
+</html>

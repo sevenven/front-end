@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>4.伪等高布局</title>
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+			}
+			#wrap{
+				width: 750px;
+				margin: 0 auto;
+				border: 1px solid #000000;
+				overflow: hidden;
+			}
+			#wrap .left{
+				float: left;
+				width: 200px;
+				padding-bottom: 1000px;
+				margin-bottom: -1000px;
+				background: pink;
+			}
+			#wrap .right{
+				float: left;
+				width: 500px;
+				padding-bottom: 1000px;
+				margin-bottom: -1000px;
+				background: hotpink;
+			}
+			.clearfix:before,
+			.clearfix:after{
+				content: "";
+				display: table;
+				clear: both;
+			}
+			.clearfix{
+				*zoom:1
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap" class="clearfix">
+			<div class="left">
+				left <br/>
+				left <br/>
+				left <br/>
+				left <br/>
+				left <br/>
+				left <br/>
+				left <br/>
+			</div>
+			<div class="right">
+				right <br/>
+				right <br/>
+				right <br/>
+				right <br/>
+				right <br/>
+				right <br/>
+				right <br/>
+				right <br/>
+				right <br/>
+				right <br/>
+				right <br/>
+				right <br/>
+				right <br/>
+				right <br/>
+				right <br/>
+				right <br/>
+				right <br/>
+				right <br/>
+				right <br/>
+			</div>
+		</div>
+	</body>
+</html>

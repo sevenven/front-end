@@ -1,0 +1,17 @@
+# bundle
+node_modules/
+dist/
+bundle/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+# assets
+*.mp3
+*.mp4
+*.ogv
+*.webm
+# Editor directories and files
+*.idea
+.vscode/
+# other
+_笔记/

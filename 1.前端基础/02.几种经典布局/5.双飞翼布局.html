@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>5.双飞翼布局</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#header, #footer{
+				height: 20px;
+				text-align: center;
+				min-width: 600px;
+				background: deeppink;
+				border: 1px solid #000000;
+			}
+			#content{
+				min-width: 600px;
+				overflow: hidden;
+			}
+			#content .middle, #content .left, #content .right{
+				padding-bottom: 10000px;
+				margin-bottom: -10000px;
+				float: left;
+			}
+			#content .left, #content .right{
+				width: 200px;
+				background: pink;
+			}
+			#content .middle{
+				width: 100%;
+				background: hotpink;
+			}
+			#content .middle-inner{
+				padding: 0 200px;
+			}
+			#content .left{
+				margin-left: -100%;
+			}
+			#content .right{
+				margin-left: -200px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="header">header</div>
+		<div id="content">
+			<div class="middle">
+				<div class="middle-inner">
+					middle <br/>
+					middle <br/>
+					middle <br/>
+					middle <br/>
+					middle <br/>
+				</div>
+			</div>
+			<div class="left">left</div>
+			<div class="right">right</div>
+		</div>
+		<div id="footer">footer</div>
+	</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>音视频兼容性写法</title>
+	</head>
+	<body>
+		<video controls width="300" height="300">
+			<source src="./video/friends-SE01-01.mp4" type="video/mp4"></source>
+			<source src="./video/friends-SE01-01.ogv" type="video/ogg"></source>
+			<source src="./video/friends-SE01-01.webm" type="video/webm"></source>
+			当前浏览器不支持 video直接播放，点击这里下载视频： <a href="./video/friends-SE01-01.mp4">下载视频</a>
+		</video>
+		
+		<audio controls >
+			<source src="./audio/yw.mp3" type='audio/mpeg'></source>
+			<source src="./audio/yw.aac" type='audio/aac; codecs="aac"'></source>
+			<source src="./audio/yw.ogg" type='audio/ogg; codecs="vorbis"'></source>
+			当前浏览器不支持 video直接播放，点击这里下载视频： <a href="./audio/yw.mp3">下载视频</a>
+		</audio>
+	</body>
+</html>
