@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue源码剖析</title>
+  <script src="../dist/vue.js"></script>
+</head>
+<body>
+  <!-- 
+    Vue2.0对比Vue1.0最大的变化
+    引入虚拟dom Watcher实例从对应一个表达式变为对应一个组件
+   -->
+  <!-- 
+    common: nodejs模块cjs,旧版打包器webpack1 browserify在用
+    esm: es模块化规范，常用于webpack2+
+    umd: universal module definition, 兼容common和amd规范 常用于浏览器
+    runtime: 说明输出的库仅有核心的运行时代码没有编译器
+   -->
+  <div id="demo">
+    <h1>初始化流程</h1>
+    <p>{{foo}}</p>
+  </div>
+  <script>
+    // 生成dom的几个选项：render > template > el
+    const app = new Vue({
+      el: '#demo',
+      // render (createElement) {
+      //   return createElement ('div', {
+      //     attrs: {
+      //       id: '#demo1'
+      //     }
+      //   }, this.foo)
+      // },
+      data: {
+        foo: 'foo'
+      }
+    });
+  </script>
+</body>
+</html>

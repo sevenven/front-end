@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue源码剖析</title>
+  <script src="../dist/vue.js"></script>
+</head>
+<body>
+  <div id="demo">
+    <h1>Vue<span>模板编译</span></h1>
+    <p>{{foo}}</p>
+    <comp @myclick="handleClick"></comp>
+  </div>
+  <script>
+    /*
+    必要性：2.x需要用到VNode描述视图及各种交互
+    主要目的:将模板(template)转换为渲染函数(render)
+    模板编译的三个阶段
+    解析
+      将模板解析为抽象语法树AST
+    优化
+      主要是标记静态节点
+    生成
+      生成render代码
+    */
+    Vue.component('comp', {
+      template: '<button @click="handleCilck">comp button</button>',
+      methods: {
+        handleCilck () {
+          this.$emit('myclick');
+        }
+      }
+    })
+    const app = new Vue({
+      el: '#demo',
+      data: {
+        foo: 'foo'
+      },
+      methods: {
+        handleClick () {
+          this.foo = 'fooooo';
+        }
+      }
+    });
+    console.log(app.$options.render)
+  </script>
+</body>
+</html>
