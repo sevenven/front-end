@@ -9,6 +9,6 @@ import { couterReducer, couterReducer2 } from './reducer';
 const store = createStore(combineReducers({
   count: couterReducer,
   count2: couterReducer2
-}), applyMiddleware(logger, thunk));
+}), applyMiddleware(thunk, logger));
 
 export default store;

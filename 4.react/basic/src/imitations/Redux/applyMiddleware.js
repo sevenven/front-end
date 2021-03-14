@@ -1,18 +1,25 @@
 export default function applyMiddleware(...middlewares) {
   return createStore => reducer => {
-
     const store = createStore(reducer);
-    let dispatch;
+    let dispatch = store.dispatch;
 
     // todo 加强dispatch
     const midApi = {
       getState: store.getState,
-      dispatch: (action, ...args) => dispatch(action, ...args) // 这是加强的dispatch
+      dispatch: (action, ...args) => dispatch(action, ...args)
     };
+
+    console.log('middlewares', middlewares)
+    
     const middlewaresChain = middlewares.map(middleware => middleware(midApi));
-    // 此处加强dispatch被加强了
+
+    console.log('middlewaresChain', middlewaresChain)
+
+    // 聚合之后的dispatch一旦执行，所有中间件也要按照顺序执行，还要修改状态（store.dispatch）
     dispatch = compose(...middlewaresChain)(store.dispatch);
 
+
+    //加强完dispatch之后
     return {
       ...store,
       dispatch
@@ -27,6 +34,5 @@ function compose(...funcs) {
   if (funcs.length === 1) {
     return funcs[0];
   }
-  // 返回了一个聚合函数
-  return funcs.reduce((a, b) => (...args) => b(a(...args)));
+  return funcs.reduce((a, b) => (...args) => a(b(...args)));
 }

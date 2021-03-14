@@ -16,9 +16,9 @@ import AntdFormPage from './pages/AntdFormPage';
 import ContextPage from './pages/ContextPage'
 import RCFieldFormPage from './pages/RCFieldFormPage';
 import ReduxPage from './pages/ReduxPage';
-import HooksPage from './pages/HookPage';
+import HooksPage from './pages/HooksPage';
 import ReactReduxPage from './pages/ReactReduxPage';
-import ReactReduxHookPage from './pages/ReactReduxHookPage';
+import ReactReduxHooksPage from './pages/ReactReduxHooksPage';
 import NotFound from './pages/NotFound';
 // import { Provider } from 'react-redux';
 import { Provider } from './imitations/ReactRedux';
@@ -57,7 +57,7 @@ export default function App() {
                 <Link to="/reactReduxPage">ReactReduxPage</Link>
               </Menu.Item>
               <Menu.Item key="reactReduxHookPage">
-                <Link to="/reactReduxHookPage">ReactReduxHookPage</Link>
+                <Link to="/reactReduxHookPage">ReactReduxHooksPage</Link>
               </Menu.Item>
             </SubMenu>
           </Menu>
@@ -84,7 +84,7 @@ export default function App() {
               <Route path="/hooksPage" component={HooksPage} />
               <Provider store={store}>
                 <Route path="/reactReduxPage" component={ReactReduxPage}></Route>
-                <Route path="/reactReduxHookPage" component={ReactReduxHookPage}></Route>
+                <Route path="/reactReduxHookPage" component={ReactReduxHooksPage}></Route>
               </Provider>
               <Route component={NotFound} />
             </Switch>

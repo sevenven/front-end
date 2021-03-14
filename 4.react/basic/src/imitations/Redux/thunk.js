@@ -1,8 +1,11 @@
 export default function thunk({getState, dispatch}) {
-  return next => action => {
-    if (typeof action === "function") {
-      action(dispatch, getState);
+  return next => {
+    console.log('thunk')
+    return action => {
+      if (typeof action === "function") {
+        return action(dispatch, getState);
+      }
+      return next(action);
     }
-    return next(action);
-  };
+  }
 }
