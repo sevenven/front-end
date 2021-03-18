@@ -1,48 +1,38 @@
 let Vue;
 // 一个简易的vue-router实现
 class VueRouter {
-  constructor(options) {
+  constructor (options) {
     this.$options = options
+    // 路由hash表
+    this.routerMap = {}
     // 实现响应式的url
-    this.current = window.location.hash.slice(1) || '/';
-    Vue.util.defineReactive(this, 'matched', []);
-    this.match();
+    Vue.util.defineReactive(this, 'current', window.location.hash.slice(1) || '/');
   }
   // 初始化
-  init() {
+  init () {
+    // 解析routers
+    this.createRouterMap()
     // 监听事件
     this.bindEvents()
     // 声明组件
     this.initComponent()
   }
-  match(routes) {
-    routes = routes || this.$options.routes;
-    for (let route of routes) {
-      if (route.path === '/' && this.current === '/') {
-        this.matched.push(route);
-        return;
-      }
-      if (route.path !== '/' && this.current.indexOf(route.path) != -1) {
-        this.matched.push(route);
-        if (route.children) {
-          this.match(route.children);
-        }
-        return;
-      }
-    }
+  // 解析routers
+  createRouterMap () {
+    this.$options.routes.forEach((router) => {
+      this.routerMap[router.path] = router
+    })
   }
   // 监听事件
-  bindEvents() {
+  bindEvents () {
     window.addEventListener('hashchange', this.onHashChange.bind(this), false)
   }
   // hashchange响应函数
-  onHashChange() {
+  onHashChange () {
     this.current = window.location.hash.slice(1) || '/';
-    this.matched = [];
-    this.match();
   }
   // 声明组件
-  initComponent() {
+  initComponent () {
     // router-link组件
     Vue.component('router-link', {
       props: {
@@ -51,7 +41,7 @@ class VueRouter {
           require: true
         }
       },
-      render(h) {
+      render (h) {
         // vue-cli环境下有jsx配置
         // return <a href={'#' + this.to}>{this.$slots.default}</a>
         return h('a', {
@@ -62,24 +52,19 @@ class VueRouter {
     // router-view组件
     Vue.component('router-view', {
       render(h) {
-        this.$vnode.data.routerView = true;
-        let depth = 0;
-        let parent = this.$parent;
-        while (parent) {
-          const vnodeData = parent.$vnode && parent.$vnode.data;
-          if (vnodeData && vnodeData.routerView) {
-            depth++;
-          }
-          parent = parent.$parent;
-        }
-        let component = null;
-        let route = this.$router.matched[depth];
-        if(route) {
-          component = route.component;
-        }
+        const { current, routerMap} = this.$router;
+        const component = routerMap[current].component || null;
         return h(component)
       }
     })
+    // Vue.component('router-view', {
+    //   functional: true,
+    //   render(h, {parent}) {
+    //     const router = parent.$router
+    //     const component = router.routerMap[router.current].component
+    //     return h(component)
+    //   }
+    // })
   }
 }
 
@@ -87,7 +72,7 @@ class VueRouter {
 VueRouter.install = function (_Vue) {
   Vue = _Vue;
   Vue.mixin({
-    beforeCreate() {
+    beforeCreate () {
       if (this.$options.router) {
         Vue.prototype.$router = this.$options.router
         this.$options.router.init();

@@ -8,21 +8,21 @@ export default class Router extends Component {
   }
 
   constructor(props) {
+
     super(props);
+
     this.state = {
       location: props.history.location
     }
-  }
-  
-  componentDidMount() {
-    const { history } = this.props;
-    this.unlisten = history.listen(location => {
+
+    this.unlisten = props.history.listen(location => {
       this.setState({
         location
       });
     })
+    
   }
-
+  
   componentWillUnmount() {
     this.unlisten();
   }

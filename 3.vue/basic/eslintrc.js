@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
   rules: {
-    'no-debugger': 2,
+    'no-debugger': 0,
   }
 }

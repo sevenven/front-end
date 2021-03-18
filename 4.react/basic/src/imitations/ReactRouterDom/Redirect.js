@@ -24,7 +24,7 @@ export default class Redirect extends Component {
 class LifeCycle extends Component {
   componentDidMount() {
     if (this.props.onMount) {
-      this.props.onMount.call(this, this);
+      this.props.onMount();
     }
   }
   render() {

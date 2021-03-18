@@ -5,7 +5,6 @@ import matchPath from './matchPath';
 export default class Route extends Component {
   render() {
     const { computedMatch, path, children, component, render } = this.props;
-    console.log(this.props)
     return (
       <RouterContext.Consumer>
         {
