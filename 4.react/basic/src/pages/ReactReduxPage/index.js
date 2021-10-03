@@ -10,30 +10,30 @@ export default
   // mapStateToProps
   ({count}) => ({count}),
   // mapDispatchToProps Object | Function
-  // {
-  //   add: () => ({ type: 'ADD', payload: 1 }),
-  //   minus: () => ({ type: 'MINUS', payload: 1 })
-  // }
-  (dispatch) => {
-    let creators = {
-      add: () => ({ type: 'ADD', payload: 1 }),
-      minus: () => ({ type: 'MINUS', payload: 1 })
-    }
-    creators = bindActionCreators(creators, dispatch);
-    return {
-      dispatch,
-      ...creators
-    }
+  {
+    add: () => ({ type: 'ADD', payload: 1 }),
+    minus: () => ({ type: 'MINUS', payload: 1 })
   }
+  // (dispatch) => {
+  //   let creators = {
+  //     add: () => ({ type: 'ADD', payload: 1 }),
+  //     minus: () => ({ type: 'MINUS', payload: 1 })
+  //   }
+  //   creators = bindActionCreators(creators, dispatch);
+  //   return {
+  //     dispatch,
+  //     ...creators
+  //   }
+  // }
 ) 
 class ReactReduxPage extends Component {
 
-  add = () => {
-    this.props.dispatch({
-      type: 'ADD',
-      payload: 1
-    })
-  }
+  // add = () => {
+  //   this.props.dispatch({
+  //     type: 'ADD',
+  //     payload: 1
+  //   })
+  // }
 
   render() { 
     const { count, add, minus } = this.props;
@@ -42,7 +42,7 @@ class ReactReduxPage extends Component {
       <div>
         <h3>ReactReduxPage</h3>
         <div>{count}</div>
-        <button onClick={this.add}>add</button>
+        {/* <button onClick={this.add}>add</button> */}
         <button onClick={add}>add</button>
         <button onClick={minus}>minus</button>
       </div>

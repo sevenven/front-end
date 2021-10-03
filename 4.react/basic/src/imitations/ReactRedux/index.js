@@ -16,7 +16,7 @@ export function Provider({store, children}) {
 // step3 子组件消费value
 export const connect = (
   mapStateToProps = state => state, 
-  mapDispatchToProps
+  mapDispatchToProps,
 ) => (WrappedComponent) => (props) => {
   const store = React.useContext(Context);
   const { getState, dispatch } = store;
