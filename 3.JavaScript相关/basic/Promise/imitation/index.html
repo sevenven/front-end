@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Promise-imitation</title>
+</head>
+<body>
+  <script src="./index.js"></script>
+  <script>
+    let p = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('OK');
+      })
+      // reject('Error');
+      // throw "Error";
+    });
+    console.log('p~~~~~', p);
+    const result = p.then(value => {
+      console.log('value~~', value);
+    }, reason => {
+      console.warn(reason);
+    });
+    console.log('result~~~', result);
+  </script>
+</body>
+</html>
