@@ -27,25 +27,72 @@ function Promise(executor) {
   }
 }
 
-Promise.resolve = function () {
+Promise.resolve = function (value) {
 
 }
 
-Promise.reject = function () {
+Promise.reject = function (reason) {
 
 }
 
 Promise.prototype.then = function (onResolved, onRejected) {
-  if (this.PromiseState === 'fullfilled') {
-    onResolved(this.PromiseResult);
-  }
-  if (this.PromiseState === 'rejected') {
-    onRejected(this.PromiseResult);
-  }
-  if (this.PromiseState === 'pending') {
-    this.callbacks = {
-      onResolved: this.callbacks.onResolved ? [...this.callbacks.onResolved, onResolved] : [onResolved],
-      onRejected: this.callbacks.onRejected ? [...this.callbacks.onRejected, onRejected] : [onRejected]
+  // resolv执行及返回值处理
+  const onResolvedCallback = (resolve, reject) => {
+    try {
+      const result = onResolved(this.PromiseResult);
+      if (result instanceof Promise) {
+        result.then(value => {
+          resolve(value);
+        }, reason => {
+          reject(reason);
+        })
+      } else {
+        resolve(result);
+      }
+    } catch (e) {
+      reject(e);
     }
   }
+  // rreject执行及返回值处理
+  const onRejectedCallback = (resolve, reject) => {
+    try {
+      const result = onRejected(this.PromiseResult);
+      if (result instanceof Promise) {
+        result.then(value => {
+          resolve(value);
+        }, reason => {
+          reject(reason);
+        })
+      } else {
+        reject(result);
+      }
+    } catch (e) {
+      reject(e);
+    }
+  }
+  return new Promise((resolve, reject) => {
+    // 同步resolv执行及返回值处理
+    if (this.PromiseState === 'fullfilled') {
+      onResolvedCallback(resolve, reject);
+    }
+    // 同步reject执行及返回值处理
+    if (this.PromiseState === 'rejected') {
+      onRejectedCallback(resolve, reject);
+    }
+    // 异步resolv和reject执行及返回值处理
+    if (this.PromiseState === 'pending') {
+      this.callbacks = {
+        onResolved: this.callbacks.onResolved ? [...this.callbacks.onResolved, () => {
+          onResolvedCallback(resolve, reject)
+        }] : [() => {
+          onResolvedCallback(resolve, reject)
+        }],
+        onRejected: this.callbacks.onRejected ? [...this.callbacks.onRejected, () => {
+          onRejectedCallback(resolve, reject)
+        }] : [() => {
+          onRejectedCallback(resolve, reject)
+        }]
+      }
+    }
+  })
 }

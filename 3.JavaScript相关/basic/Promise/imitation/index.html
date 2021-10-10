@@ -8,17 +8,25 @@
   <script src="./index.js"></script>
   <script>
     let p = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve('OK');
-      })
-      // reject('Error');
+      // setTimeout(() => {
+      //   resolve('OK');
+      // })
+      reject('Error');
       // throw "Error";
     });
     console.log('p~~~~~', p);
     const result = p.then(value => {
       console.log('value~~', value);
+      return '123';
+      // return new Promise((resolve, reject) => {
+      //   // resolve('success');
+      //   // reject('error');
+      // })
+      // throw 'FAIL';
     }, reason => {
       console.warn(reason);
+      return '123';
+      // throw 'FAIL';
     });
     console.log('result~~~', result);
   </script>
