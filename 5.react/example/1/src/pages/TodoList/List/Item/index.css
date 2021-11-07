@@ -1,0 +1,34 @@
+.todo-container li {
+  list-style: none;
+  height: 36px;
+  line-height: 36px;
+  padding: 0 5px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.todo-container li label {
+  float: left;
+  cursor: pointer;
+}
+
+.todo-container li label li input {
+  vertical-align: middle;
+  margin-right: 6px;
+  position: relative;
+  top: -1px;
+}
+
+.todo-container li button {
+  float: right;
+  display: none;
+  margin-top: 3px;
+}
+
+.todo-container li:before {
+  content: initial;
+}
+
+.todo-container li:last-child {
+  border-bottom: none;
+}

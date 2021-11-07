@@ -126,7 +126,7 @@ function createNode(workInProgress) {
 function updateNode(node, props) {
   Object.keys(props).forEach(prop => {
     if (prop === 'children') {
-      if (isStringOrNumber(props[prop])) {
+      if (isStringOrNumber(props[prop])) { // 文本节点处理
         node.textContent = props[prop] + "";
       }
     } else if (prop.slice(0, 2) === "on") {
