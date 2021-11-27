@@ -6,30 +6,32 @@ export default class Search extends Component {
   search = async () => {
     const { value: keyWord } = this.keyWordNode;
     PubSub.publish('search', { isLoading: true, isFirst: false })
-    /* fetch(`/api1/search/users?q=${keyWord}`).then(
+    /* fetch(`/api1/search/users2?q=${keyWord}`).then(
       response => {
-        console.log('联系服务器成功了', response.json());
-        return response.json()
+        if (response.status === 200) {
+          return response.json()
+        } else {
+          response.message = response.statusText;
+          return Promise.reject(response)
+        }
       },
-      // error => {
-      //   console.log('联系服务器失败了', error);
-      //   return new Promise(() => { })
-      // }
     ).then(
       response => {
         PubSub.publish('search', { isLoading: false, users: response.items })
       },
-      // error => { console.log('获取数据失败了', error); }
     ).catch((error) => {
-      console.log('请求出错', error);
       PubSub.publish('search', { isLoading: false, err: error.message })
     }) */
     try {
-      const response = await fetch(`/api1/search/users?q=${keyWord}`)
-      const data = await response.json()
-      PubSub.publish('search', { isLoading: false, users: data.items })
+      const response = await fetch(`/api1/search/users2?q=${keyWord}`)
+      if (response.status === 200) {
+        const data = await response.json()
+        PubSub.publish('search', { isLoading: false, users: data.items })
+      } else {
+        response.message = response.statusText;
+        throw response
+      }
     } catch (error) {
-      console.log('请求出错', error);
       PubSub.publish('search', { isLoading: false, err: error.message })
     }
   }
