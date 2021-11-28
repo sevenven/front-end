@@ -1,10 +1,11 @@
 .todo-header input {
-  width: 560px;
-  height: 28px;
+  width: 578px;
+  height: 36px;
   font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 4px 7px;
+  margin-bottom: 8px;
 }
 
 .todo-header input:focus {

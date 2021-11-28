@@ -8,8 +8,11 @@
 }
 
 .todo-container li label {
-  float: left;
   cursor: pointer;
+}
+
+.todo-container li label span {
+  margin-left: 8px;
 }
 
 .todo-container li label li input {

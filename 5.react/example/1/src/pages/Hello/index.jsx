@@ -6,10 +6,11 @@ import hello from './index.module.css';
 
 export default class Hello extends PureComponent {
   render () {
+    console.log('this.props~~~', this.props)
     return (
-      <div className={hello.title}>
-        Hello React
-      </div>
+      <h1 className={hello.title}>
+        这是Hello的内容
+      </h1>
     )
   }
 }
