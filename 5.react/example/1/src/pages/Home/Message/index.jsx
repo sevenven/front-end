@@ -73,8 +73,8 @@ export default class Message extends Component {
         {/* 声明接收params参数 */}
         {/* <Route path="/home/message/detail/:id/:title" component={Detail} /> */}
         <Route path="/home/message/detail" component={Detail} />
-        <button onClick={this.back}>回退</button>&nbsp;
-        <button onClick={this.forward}>前进</button>&nbsp;
+        <button onClick={this.back}>回退</button>&emsp;
+        <button onClick={this.forward}>前进</button>&emsp;
         <button onClick={this.go}>go</button>
       </React.Fragment>
     )

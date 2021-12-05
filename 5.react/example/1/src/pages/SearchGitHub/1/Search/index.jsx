@@ -23,7 +23,7 @@ export default class Search extends Component {
       <section className="jumbotron" style={{paddingLeft: '24px'}}>
         <h3 className="jumbotron-heading">搜索Github用户</h3>
         <div>
-          <input ref={c => this.keyWordNode = c} type="text" placeholder="输入关键词点击搜索" />&nbsp;
+          <input ref={c => this.keyWordNode = c} type="text" placeholder="输入关键词点击搜索" />&emsp;
           <button onClick={this.search}>搜索</button>
         </div>
       </section>

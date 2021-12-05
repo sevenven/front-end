@@ -4,6 +4,9 @@ import Home from './pages/Home'
 import Hello from './pages/Hello'
 import TodoList from './pages/TodoList'
 import SearchGitHub from './pages/SearchGitHub/3'
+import Count from './pages/Count'
+import Redux from './pages/Redux'
+import ReactRedux from './pages/ReactRedux'
 import './App.css';
 import './assets/css/bootstrap.css'
 
@@ -24,6 +27,9 @@ export default function App() {
               <NavLink className="list-group-item" to="/hello">Hello</NavLink>
               <NavLink className="list-group-item" to="/todolist" >TodoList</NavLink>
               <NavLink className="list-group-item" to="/searchgithub" >SearchGitHub</NavLink>
+              <NavLink className="list-group-item" to="/count" >Count</NavLink>
+              <NavLink className="list-group-item" to="/redux" >Redux</NavLink>
+              <NavLink className="list-group-item" to="/reactredux" >ReactRedux</NavLink>
             </div>
           </div>
           <div className="col-xs-7">
@@ -35,6 +41,9 @@ export default function App() {
                   <Route path='/hello' component={Hello} />
                   <Route path='/todolist' component={TodoList} />
                   <Route path='/searchgithub' component={SearchGitHub} />
+                  <Route path='/count' component={Count} />
+                  <Route path='/redux' component={Redux} />
+                  <Route path='/reactredux' component={ReactRedux} />
                   <Redirect to='/home/news' />
                 </Switch>
               </div>
