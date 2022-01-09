@@ -1,0 +1,37 @@
+{
+  "name": "02",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "bundle": "webpack",
+    "watch": "webpack --watch",
+    "devServer": "webpack-dev-server",
+    "middleware": "node server.js"
+  },
+  "keywords": [],
+  "author": "seven",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/plugin-transform-runtime": "^7.16.7",
+    "@babel/preset-env": "^7.16.7",
+    "@babel/runtime": "^7.16.7",
+    "autoprefixer": "8.6.5",
+    "babel-loader": "^8.2.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "core-js": "^3.20.2",
+    "css-loader": "5.2.7",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "4",
+    "node-sass": "4.14.1",
+    "postcss-loader": "4.2.0",
+    "sass-loader": "8.0.2",
+    "style-loader": "2.0.0",
+    "url-loader": "^4.1.1",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.1",
+    "webpack-dev-server": "3.11.2"
+  },
+  "dependencies": {}
+}

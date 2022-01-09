@@ -20,6 +20,7 @@ var root = document.getElementById('root')
 
 var img = new Image()
 img.src = avatar
+// img.classList.add('avatar')
 img.classList.add(style.avatar)
 
 root.append(img)
@@ -30,9 +31,8 @@ div.classList.add(icon['icon-fangwu'])
 
 root.append(div)
 
-console.log("js又改变了");
-
-
+// 测试热更新
+// css热更新不需要特别的写法
 var btn = document.createElement('button');
 btn.innerHTML = '新增';
 document.body.appendChild(btn);
@@ -45,16 +45,18 @@ btn.onclick = function() {
 }
 
 new Counter();
-
 new Number();
-
+// JS热更新写法
 if(module.hot){
 	module.hot.accept('./js/number', () => {
-    document.body.removeChild(document.getElementById('number'))
+    document.body.removeChild(document.getElementById('number'));
+		// 热更新Number模块
+		// 可以更改number的代码测试热更新
     new Number();
 	})
 }
 
+// 测试ES6语法
 const arr = [
   new Promise(() => {}),
   new Promise(() => {})

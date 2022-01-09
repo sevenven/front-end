@@ -1,6 +1,6 @@
 .avatar{
   width: 150px;
 }
-.item{
+.item:nth-child(odd){
   background: red;
 }
