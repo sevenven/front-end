@@ -52,8 +52,8 @@ module.exports = {
         {
           loader: "css-loader",
           options: {
-            // sass里面引入的sass文件也会走下面的两个loader
-            importLoaders: 0, // 0 => no loaders (default); 1 => postcss-loader; 2 => postcss-loader, sass-loader
+            // css里面引入的@import引入的文件可以执行哪些loader
+            importLoaders: 2, // 0 => no loaders (default); 1 => postcss-loader; 2 => postcss-loader, sass-loader
             // css模块化打包-style.xxx 类名打包后会变成'ZYAf6xDyRZF56xdN2Ybxug=='
             modules: true
           },

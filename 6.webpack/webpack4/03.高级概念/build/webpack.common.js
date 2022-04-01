@@ -1,6 +1,6 @@
 const path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -42,23 +42,26 @@ module.exports = {
     }),
     new CleanWebpackPlugin()
   ],
-  /*
-  实际应用的时候如果没有什么特殊要求可以就这么配置
+  
+  // 实际应用的时候如果没有什么特殊要求可以就这么配置
+  // optimization: {
+  //   // tree shaking
+  //   usedExports: true,
+  //   splitChunks: {
+  //     chunks: "all",
+  //   }
+  // },
   optimization: {
-    splitChunks: {
-      chunks: "all",
-    }
-  },*/
-  optimization: {
-    // tree shaking
+    // tree shaking-mode: 'production'时才会真正去掉未引入模块的代码
     usedExports: true,
+    // 代码分割策略
     splitChunks: {
-      // all分割异步和同步引入的代码
-      // async 只分割异步引入的方法
+      // all分割异步和同步引入的代码、async 只分割异步引入的方法
       chunks: "all",
       // 分割的代码体积最小要多小
-      minSize: 30000,
-      // 尝试根据maxSize和打包出来的代码进行二次分割
+      // minSize: 30000,
+      minSize: 0,
+      // webpack会尝试根据maxSize和打包出来的代码进行二次分割
       // maxSize: 50000,
       // 打包生成的模块至少用了它多少次的时候才对它进行代码分割
       minChunks: 1,
@@ -66,11 +69,14 @@ module.exports = {
       maxAsyncRequests: 5,
       // 入口文件引入的库最多可以分割多少个
       maxInitialRequests: 3,
-      // 连接符
-      automaticNameDelimiter: '~',
+      // 文件生成的时候中间的连接符
+      automaticNameDelimiter: '-',
+      // cacheGroups里面的分组按照默认的名字来
       name: true,
       // 代码分割的组
       cacheGroups: {
+        // vendors: false,
+        // default: false
         vendors: {
           // 分组规则
           test: /[\\/]node_modules[\\/]/,

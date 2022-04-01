@@ -1,4 +1,3 @@
-const path = require('path');
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const commonConfig = require('./webpack.common.js')
@@ -14,9 +13,9 @@ const devConfig = {
   ],
   devtool: 'cheap-module-eval-source-map',
   devServer: {
+    open: true,
     overlay: true,
     publicPath: 'http://localhost:8080',
-    open: true,
     proxy: {
       '/react/api': 'http://www.dell-lee.com'
     },

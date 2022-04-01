@@ -1,7 +1,8 @@
 {
   "name": "03",
   "sideEffects": [
-    "*.css"
+    "*.css",
+    "*.scss"
   ],
   "version": "1.0.0",
   "description": "",
