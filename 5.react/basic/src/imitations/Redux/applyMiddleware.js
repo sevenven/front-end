@@ -3,7 +3,7 @@ export default function applyMiddleware(...middlewares) {
     const store = createStore(reducer);
     let dispatch = store.dispatch;
 
-    // todo 加强dispatch
+    // 加强dispatch
     const midApi = {
       getState: store.getState,
       dispatch: (action, ...args) => dispatch(action, ...args)

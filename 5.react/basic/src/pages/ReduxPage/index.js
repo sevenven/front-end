@@ -46,13 +46,14 @@ export default class ReduxPage extends Component {
   }
 
   render() { 
+    const { count, count2 } = store.getState();
     return (
       <div>
         <h3>ReduxPage</h3>
-        <div>{store.getState().count}</div>
+        <div>{count}</div>
         <button onClick={this.add}>add</button>
         <button onClick={this.asyncAdd}>asyncAdd</button>
-        <div>{store.getState().count2.num}</div>
+        <div>{count2.num}</div>
         <button onClick={this.add2}>add2</button>
       </div>
     );

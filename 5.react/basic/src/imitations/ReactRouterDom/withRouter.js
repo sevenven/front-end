@@ -1,6 +1,6 @@
 import RouterContext from "./RouterContext";
 
-const widthRouter = WrappedComponent => props => {
+const withRouter = WrappedComponent => props => {
   return <RouterContext.Consumer>
     {
       context => {
@@ -10,4 +10,4 @@ const widthRouter = WrappedComponent => props => {
   </RouterContext.Consumer>
 }
 
-export default widthRouter;
+export default withRouter;

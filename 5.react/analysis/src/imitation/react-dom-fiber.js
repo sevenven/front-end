@@ -3,7 +3,7 @@ import { Deletion, Placement, Update } from "./const";
 
 // fiber根节点
 let workInProgressRoot = null;
-// 存储fiber更节点
+// 存储fiber根节点
 let currentRoot = null;
 // 下一个fiber任务
 let nextUnitOfWork = null;

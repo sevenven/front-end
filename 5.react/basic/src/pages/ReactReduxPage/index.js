@@ -19,10 +19,9 @@ export default
   //     add: () => ({ type: 'ADD', payload: 1 }),
   //     minus: () => ({ type: 'MINUS', payload: 1 })
   //   }
-  //   creators = bindActionCreators(creators, dispatch);
   //   return {
   //     dispatch,
-  //     ...creators
+  //     ...bindActionCreators(creators, dispatch)
   //   }
   // }
 ) 

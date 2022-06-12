@@ -3,7 +3,6 @@ import matchPath from './matchPath';
 import RouterContext from './RouterContext';
 
 export default class Switch extends Component {
-  state = {  }
   render() { 
     return (
       <RouterContext.Consumer>

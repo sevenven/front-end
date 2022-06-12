@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Form, Input, Button } from 'antd';
-import { widthRouter, useHistory, useLocation, useRouteMatch, useParams } from '../../imitations/ReactRouterDom';
+import { withRouter, useHistory, useLocation, useRouteMatch, useParams } from '../../imitations/ReactRouterDom';
 
 const nameRules = {
   required: true,
@@ -60,4 +60,4 @@ function AntdFormPage(props) {
 
 export default AntdFormPage;
 
-// export default widthRouter(AntdFormPage)
+// export default withRouter(AntdFormPage)

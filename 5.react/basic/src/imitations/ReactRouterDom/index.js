@@ -4,7 +4,7 @@ import Link from './Link';
 import Route from './Route';
 import Switch from './Switch';
 import { useHistory, useLocation, useRouteMatch, useParams} from './hooks';
-import widthRouter from './widthRouter';
+import withRouter from './withRouter';
 import Redirect from './Redirect';
 
 export {
@@ -17,6 +17,6 @@ export {
   useLocation,
   useRouteMatch,
   useParams,
-  widthRouter,
-  // Redirect
+  withRouter,
+  Redirect
 }

@@ -74,8 +74,11 @@ export default function App() {
               <Route
                 exact
                 path="/"
+                // 优先级最高-function-不管是否匹配都会渲染
                 // children={() => <div>children</div>}
+                // 优先级第二-渲染component的时候会调用React.createElement，如果使用下面这种匿名函数的形式，会导致生成的组件的type总是不相同，这个时候会产生重复的卸载和挂载
                 // component={AntdFormPage}
+                // 优先级最后-function
                 render={ () => <AntdFormPage /> }
               />
               <Route path="/contextPage" component={ContextPage} />
