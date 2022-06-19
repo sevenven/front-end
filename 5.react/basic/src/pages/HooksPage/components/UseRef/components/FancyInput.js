@@ -15,6 +15,7 @@ export default React.forwardRef((props, ref) => {
   }), [ fresh ]);
 
   const handleClick = useCallback(() => {
+    // useRef用法2：存储变量
     attRef.current++;
   }, []);
 

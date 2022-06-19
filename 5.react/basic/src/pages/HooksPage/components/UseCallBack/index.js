@@ -6,6 +6,7 @@ export default function UseCallBack(props) {
   const [count, setCount] = useState(10);
   const [count2, setCount2] = useState(20);
 
+  // 使用了useCallback，函数地址只有当依赖发生变化的时候才会改变
   const addCount = useCallback(() => {
     console.log('addCount~~~~', count);
     setCount(count + 1)
@@ -16,29 +17,23 @@ export default function UseCallBack(props) {
     setCount2(count2 + 2)
   }
 
-  const addAllCount = () => {
-    console.log('addAllCount-count~~~~', count);
-    console.log('addAllCount-count2~~~', count2)
-    setCount(count + 1)
-    setCount2(count2 + 2)
-  }
-
   return (
     <div>
-      <br/><br/>
+      <br/>
       <h4>UseCallBack</h4>
-      <button onClick={addAllCount}>addAll</button>
       <div>{count}</div>
       <button onClick={addCount}>add</button>
       <div>{count2}</div>
       <button onClick={addCount2}>add2</button>
       <A
         count={count}
+        // 接受一个函数作为props
         addCount={addCount}
       />
       <MemoA
         count={count}
-        // useCallback需要搭配useMeno使用
+        // 接受一个函数作为props
+        // useCallback需要搭配React.memo使用-浅比较
         addCount={addCount}
       />
     </div>
