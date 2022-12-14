@@ -3,7 +3,7 @@ import React, { useRef } from 'react';
 import FancyInput from './components/FancyInput';
 
 export default function UseImperativeHandle (props) {
-  // useRef1: 获取组件实例
+  // useRef用法1: 获取组件实例
   const fancyInputRef = useRef();
 
   return (

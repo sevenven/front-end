@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "file": "bundle.js",
+  "mappings": ";;;;;AAAA,4B", // 表示对js当中哪一行进行映射
+  "sources": [
+    "webpack://aa/./src/index.js"
+  ],
+  "sourcesContent": [
+    "console.log('hello webpack')"
+  ],
+  "names": [],
+  "sourceRoot": ""
+}

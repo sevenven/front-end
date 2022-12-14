@@ -1,15 +1,15 @@
 // 节流
-function throttle (fn, delay) {
-  let valid = true;
-  return function () {
-    if (!valid) return;
-    valid = false;
-    setTimeout(function () {
-      fn();
-      valid = true;
-    }, delay)
+function throttle(fn, delay) {
+  let timer = null
+  return () => {
+    if (!timer) {
+      timer = setTimeout(() => {
+        fn();
+        timer = null;
+      }, delay)
+    }
   }
-} 
+}
 
 window.onscroll = throttle(function () {
   var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
@@ -18,7 +18,7 @@ window.onscroll = throttle(function () {
 
 
 // 防抖
-function debounce (fn, delay) {
+function debounce(fn, delay) {
   let timer = null;
   return function () {
     if (timer) {

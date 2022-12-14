@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>模块化演进</title>
+</head>
+
+<body>
+  <h2>模块化演进</h2>
+  <!-- <script type="text/javascript" src="./withoutMoudle.js"> </script>
+  <script type="text/javascript">
+    const data = api();
+    const a = handle(data, 'a');
+    const b = handle(data, 'b');
+    const c = sum(a, b);
+    console.log('withoutMoudle_c: ', c);
+  </script> -->
+  <!-- <script type="text/javascript" src="./namespace.js"> </script>
+  <script type="text/javascript">
+    const data = __Module.api();
+    const a = __Module.handle(data, 'a');
+    const b =__Module. handle(data, 'b');
+    const c = __Module.sum(a, b);
+    console.log('__Module_c: ', c);
+  </script> -->
+  <!-- <script type="text/javascript" src="./IIFE.js"> </script>
+  <script type="text/javascript">
+    const data = __Module.api();
+    const a = __Module.handle(data, 'a');
+    const b =__Module. handle(data, 'b');
+    const c = __Module.sum(a, b);
+    console.log('IIFE_c: ', c);
+    console.log('IIFE_x: ', __Module.getX());
+  </script> -->
+  <!-- <script type="text/javascript" src="./IIFE_enhance_api.js"> </script>
+  <script type="text/javascript" src="./IIFE_enhance_sum.js"> </script>
+  <script type="text/javascript">
+    const data = __Module.api.api();
+    const a = __Module.api.handle(data, 'a');
+    const b =__Module.api.handle(data, 'b');
+    const c = __Module.sum(a, b);
+    console.log('IIFE_enhance_c: ', c);
+    console.log('IIFE_enhance_x: ', __Module.api.getX());
+  </script> -->
+  <!-- <script src="./CJS/dist/bundle.js"></script> -->
+  <script type="module" src="./ESM/handle.js"></script>
+  <script type="module" src="./ESM/sum.js"></script>
+  <script type="module" src="./ESM/api.js"></script>
+  <script type="module" src="./ESM/entry.js"></script>
+</body>
+
+</html>
