@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>手写jQuery</title>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			font-size: 0.32rem;
+		}
+	</style>
+</head>
+
+<body>
+	<p>一段文字1</p>
+	<p>一段文字2</p>
+	<p>一段文字3</p>
+	<script src="./index.js"></script>
+	<script type="text/javascript">
+		const $p = new jQuery('p');
+		console.log('$p', $p)
+		console.log('$p.get(1)', $p.get(1))
+		$p.each((elem) => {
+			console.log(elem)
+		})
+		$p.on('click', function (event) {
+			console.log('elem', event.target)
+		})
+	</script>
+</body>
+
+</html>

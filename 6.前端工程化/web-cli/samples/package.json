@@ -1,0 +1,19 @@
+{
+  "name": "examples",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  
+  "scripts": {
+    "start": "web-cli start --debug --custom-webpack-path D:\\NvmNode\\nvm\\v14.17.5\\node_modules\\webpack\\lib\\webpack.js",
+    "build": "cross-env NODE_ENV=production web-cli build"
+  },
+  "keywords": [],
+  "author": "seven",
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
+}

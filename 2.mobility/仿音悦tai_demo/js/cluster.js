@@ -1259,8 +1259,8 @@
 			// 禁掉文字选中的默认行为 以及下拉的系统橡皮筋效果
 			ev.preventDefault();
 		})
-		//移动端a标签的跳转方案  解决误触
-		var aNodes = document.querySelectorAll("a");
+		// 禁止掉默认行为后，对于a标签跳转需要自己手动写一下
+		var aNodes =  document.getElementsByTagName("a");
 		for(var i=0;i<aNodes.length;i++){
 			aNodes[i].addEventListener("touchstart",function(){
 				this.isMoved=false;

@@ -116,7 +116,7 @@ Promise.all = function (promises) {
   return new Promise((resolve, reject) => {
     let count = 0;
     let arr = [];
-    for(let i = 0; i < promises.length; i++) {
+    for (let i = 0; i < promises.length; i++) {
       promises[i].then(v => {
         // 得知对象的状态是fulfilled
         count++;
@@ -134,7 +134,7 @@ Promise.all = function (promises) {
 
 Promise.race = function (promises) {
   return new Promise((resolve, reject) => {
-    for(let i = 0; i < promises.length; i++) {
+    for (let i = 0; i < promises.length; i++) {
       promises[i].then(v => {
         resolve(v);
       }, r => {

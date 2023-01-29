@@ -1,17 +1,15 @@
-/*
-1.改变this指向
-2.执行函数
-3.对象参数可以为null
-4.函数可以有返回值
-*/
+// 1.改变this指向
+// 2.执行函数
+// 3.对象参数可以为null
+// 4.函数可以有返回值
 
 // 模拟Function.prototype.call
 Function.prototype.call2 = function (ctx) {
   var context = ctx || window,
-      args = [],
-      res;
+    args = [],
+    res;
   context.fn = this;
-  for (var i = 1, len = arguments.length; i < len; i++) 
+  for (var i = 1, len = arguments.length; i < len; i++)
     args.push('arguments[' + i + ']');
   res = eval('context.fn(' + args + ')');
   delete context.fn;
@@ -22,7 +20,7 @@ var name = 'seven-window';
 var foo = {
   name: 'seven'
 };
-function bar (age, gender) {
+function bar(age, gender) {
   console.log(this.name, age, gender);
   return 'bobozanzan';
 }

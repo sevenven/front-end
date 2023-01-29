@@ -3,11 +3,11 @@
 // 模拟Function.prototype.apply
 Function.prototype.apply2 = function (ctx, arr) {
   var context = ctx || window,
-      args = [],
-      len = arr && arr.length || 0,
-      res;
+    args = [],
+    len = arr && arr.length || 0,
+    res;
   context.fn = this;
-  for (var i = 0; i < len; i++) 
+  for (var i = 0; i < len; i++)
     args.push('arr[' + i + ']');
   res = eval('context.fn(' + args + ')');
   delete context.fn;
@@ -18,7 +18,7 @@ var name = 'seven-window';
 var foo = {
   name: 'seven'
 };
-function bar (age, gender) {
+function bar(age, gender) {
   console.log(this.name, age, gender);
   return 'bobozanzan';
 }
