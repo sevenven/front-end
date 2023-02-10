@@ -17,6 +17,16 @@ export default new Router({
       path: '/about',
       name: 'about',
       component: () => import('./views/About.vue'),
+      children: [{
+        path: '/about/elform',
+        name: 'elform',
+        component: () => import('./views/ELForm.vue'),
+      }]
+    },
+    {
+      path: '/elform',
+      name: 'elform',
+      component: () => import('./views/ELForm.vue'),
     }
   ]
 })

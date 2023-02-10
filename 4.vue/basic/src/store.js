@@ -5,7 +5,9 @@ import Vuex from "./imitation/vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  // 状态、数据
   state: { count: 0 },
+  // 一步操作
   actions: {
     asyncIncrement({ commit, getters }) {
       // 异步逻辑返回Promise
@@ -22,6 +24,7 @@ export default new Vuex.Store({
       });
     },
   },
+  // 更改状态的函数
   mutations: {
     increment(state) {
       state.count += 1;

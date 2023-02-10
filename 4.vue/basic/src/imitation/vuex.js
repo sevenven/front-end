@@ -2,7 +2,7 @@ let Vue
 
 // 一个简易的Store
 class Store {
-  constructor (options) {
+  constructor(options) {
     // 持有state并使其响应化
     this.state = new Vue({ data: options.state });
     // this._vm = new Vue({
@@ -22,18 +22,18 @@ class Store {
   //   return this._vm._data.$$state
   // }
   // set state(val) {
-  //   console.error('plese use replaceState to reset state')
+  //   console.warn('plese use replaceState to reset state')
   // }
   // 派发action的函数
-  dispatch (type, payload) {
+  dispatch(type, payload) {
     return this.actions[type](this, payload);
   }
   // 更新state的函数
-  commit (type, payload) {
+  commit(type, payload) {
     this.mutations[type](this.state, payload);
   }
   // 在this.getters上代理getters
-  handleGetters (getters) {
+  handleGetters(getters) {
     var _this = this;
     this.getters = {};
     Object.keys(getters).forEach(function (key) {
@@ -46,7 +46,7 @@ class Store {
   }
 }
 
-function install (_Vue) {
+function install(_Vue) {
   Vue = _Vue;
   Vue.mixin({
     beforeCreate() {

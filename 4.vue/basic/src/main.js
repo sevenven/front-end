@@ -7,8 +7,10 @@ import toast from './utils/toast.js'
 Vue.config.productionTip = false;
 Vue.prototype.$toast = toast;
 
-new Vue({
+const app = new Vue({
   render: h => h(App),
   router,
   store
 }).$mount('#app');
+
+console.log('app~~~', app)

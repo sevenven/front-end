@@ -1,5 +1,5 @@
 // 实现一个简单的MVVM框架 1.数据代理 2.双向数据绑定 3.模板编译
-function MVVM (options) {
+function MVVM(options) {
   this.$options = options;
   this.$data = options.data;
   var vm = this;
@@ -20,10 +20,10 @@ function MVVM (options) {
 MVVM.prototype._proxyData = function (key) {
   Object.defineProperty(this, key, {
     enumerable: true,
-    get () {
+    get() {
       return this.$data[key];
     },
-    set (newVal) {
+    set(newVal) {
       this.$data[key] = newVal;
     }
   })

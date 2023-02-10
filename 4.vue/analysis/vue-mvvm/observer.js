@@ -1,10 +1,10 @@
 // data代理入口
-function observe (data) {
+function observe(data) {
   if (!data || Object.prototype.toString.call(data) !== '[object Object]') return;
   new Observer(data);
 }
 
-function Observer (data) {
+function Observer(data) {
   var ob = this;
   // 遍历代理data
   Object.keys(data).forEach(function (key) {
@@ -15,14 +15,15 @@ function Observer (data) {
 // 代理data的每一项，实现数据响应式监听
 Observer.prototype.defineReactive = function (data, key, val) {
   observe(val); // 间接递归
+  // 一个响应式属性对应一个dep实例
   var dep = new Dep();
   Object.defineProperty(data, key, {
     enumerable: true,
-    get () {
+    get() {
       Dep.target && dep.addSub(Dep.target);
       return val;
     },
-    set (newVal) {
+    set(newVal) {
       if (newVal != val) {
         val = newVal;
         dep.notify();
@@ -32,7 +33,7 @@ Observer.prototype.defineReactive = function (data, key, val) {
 }
 
 // data的每一项对应一个Dep实例
-function Dep () {
+function Dep() {
   this.subs = []; // 存放订阅当前Dep实例对应的data项变化的Watcher实例
 }
 

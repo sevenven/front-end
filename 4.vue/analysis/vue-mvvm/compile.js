@@ -1,51 +1,52 @@
 // 编译模板
-function Compile (el, vm) {
+function Compile(el, vm) {
   this.$vm = vm;
-  el = document.querySelector(el);
-  if (el) {
-    var fragment = this.node2Fragement(el);
+  let root = document.querySelector(el);
+  if (root) {
+    var fragment = this.node2Fragement(root);
     this.compile(fragment);
-    el.appendChild(fragment);
+    root.appendChild(fragment);
   }
 }
 
 // 将节点转化为fragment
 Compile.prototype.node2Fragement = function (node) {
   var fragment = document.createDocumentFragment();
-  while (node.firstChild) 
+  while (node.firstChild)
     fragment.append(node.firstChild);
   return fragment;
 }
 
 // 编译模板
 Compile.prototype.compile = function (node) {
-  var childNodes = node.childNodes,
-      cmpl = this;
-  Array.prototype.slice.call(childNodes).forEach(function (node) {
+  var childNodes = node.childNodes
+  Array.from(childNodes).forEach((node) => {
     var text = node.textContent,
-        reg = /\{\{(.*)\}\}/;
-    if (cmpl.isElementNode(node)) // 元素节点
-      cmpl.compileElement(node)
-    else if (cmpl.isTextNode(node) && reg.test(text)) // 文本节点且为大括号表达式
-      cmpl.compileText(node, RegExp.$1);
-    if (node.childNodes && node.childNodes.length) 
-      cmpl.compile(node);
+      reg = /\{\{(.*)\}\}/;
+    if (this.isElementNode(node)) { // 元素节点
+      this.compileElement(node)
+    } else if (this.isTextNode(node) && reg.test(text)) { // 文本节点且为大括号表达式
+      this.compileText(node, RegExp.$1);
+    }
+    // 递归遍历
+    if (node.childNodes && node.childNodes.length)
+      this.compile(node);
   })
 }
 
 // 编译元素节点
 Compile.prototype.compileElement = function (node) {
-  var nodeAttrs = node.attributes,
-      cmpl = this;
-  Array.prototype.slice.call(nodeAttrs).forEach(function (attr) {
+  var nodeAttrs = node.attributes
+  Array.from(nodeAttrs).forEach((attr) => {
     var attrName = attr.name;
-    if (cmpl.isDirective(attrName)) { // 判断是否是指令属性
+    if (this.isDirective(attrName)) { // 判断是否是指令属性
       var dir = attrName.slice(2),
-          exp = attr.value;
-      if (cmpl.isEventDirective(dir)) // 事件指令
-        compileUtil.eventHandle(cmpl.$vm, node, exp, dir)
-      else // 普通指令
-        compileUtil[dir](cmpl.$vm, node, exp);
+        exp = attr.value;
+      if (this.isEventDirective(dir)) { // 事件指令
+        compileUtil.eventHandle(this.$vm, node, exp, dir)
+      } else { // 普通指令
+        compileUtil[dir](this.$vm, node, exp);
+      }
     }
   })
 }
@@ -79,42 +80,44 @@ Compile.prototype.isEventDirective = function (dir) {
 var compileUtil = {
   // v-text
   text: function (vm, node, exp) {
-    this.bind(vm, node, exp, 'text');
+    this.update(vm, node, exp, 'text');
   },
   // v-html
   html: function (vm, node, exp) {
-    this.bind(vm, node, exp, 'html');
+    this.update(vm, node, exp, 'html');
   },
   // v-class
   class: function (vm, node, exp) {
-    this.bind(vm, node, exp, 'class');
+    this.update(vm, node, exp, 'class');
   },
   // v-model
   model: function (vm, node, exp) {
-    this.bind(vm, node, exp, 'model');
+    this.update(vm, node, exp, 'model');
     var val = this._getVMVal(vm, exp),
-        util = this;
-    node.addEventListener('input', function (e) {
+      util = this;
+    node.addEventListener('input', (e) => {
       var newVal = e.target.value;
       if (newVal !== val) {
         val = newVal;
-        util._setVMVal(vm, exp, val);
+        this._setVMVal(vm, exp, val);
       }
     }, false);
   },
   // v-on
   eventHandle: function (vm, node, exp, dir) {
     var eventType = dir.split(':')[1],
-        fn = vm.$options.methods && vm.$options.methods[exp];
+      fn = vm.$options.methods && vm.$options.methods[exp];
     if (eventType && fn)
       node.addEventListener(eventType, fn.bind(vm), false);
   },
-  // bind
-  bind: function (vm, node, exp, dir) {
+  // update
+  update: function (vm, node, exp, dir) {
     var updaterFn = updater[dir + 'Updater'];
+    // 初始化表达式
     updaterFn && updaterFn(node, this._getVMVal(vm, exp));
-    new Watcher(vm, exp, function (val, oldVal) {
-      updaterFn && updaterFn(node, val, oldVal);
+    // 创建Watcher实例，负责后续更新
+    new Watcher(vm, exp, function (val) {
+      updaterFn && updaterFn(node, val);
     })
   },
   // 获取exp在vm.$data中对应的值
@@ -131,9 +134,9 @@ var compileUtil = {
     var val = vm.$data;
     exp = exp.split('.');
     exp.forEach(function (key, index) {
-      if (index < exp.length - 1) 
+      if (index < exp.length - 1)
         val = val[key];
-      else 
+      else
         val[key] = newVal
     })
   }
@@ -152,7 +155,7 @@ var updater = {
   // class
   classUpdater: function (node, val, oldVal) {
     var className = node.className.replace(oldVal, '').replace(/\s$/, ''),
-        space = className && val ? ' ' : '';
+      space = className && val ? ' ' : '';
     node.className = className + space + val;
   },
   // model

@@ -34,7 +34,7 @@ export default function UseCallBack(props) {
         count={count}
         // 接受一个函数作为props
         // useCallback需要搭配React.memo使用-浅比较
-        addCount={addCount}
+        addCount={addCount2}
       />
     </div>
   )

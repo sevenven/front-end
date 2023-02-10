@@ -17,7 +17,11 @@
 
     p1.then(value => {
       console.log('22222222222');
-    }, reason => {
+    }).then(value => {
+      console.log('22222222222');
+    }).then(value => {
+      console.log('22222222222');
+    }).catch(reason => {
       console.log('44444444444444')
     });
 

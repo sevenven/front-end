@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue源码剖析</title>
+  <script src="../dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="demo">
+    <h1>虚拟dom</h1>
+    <p :title="foo">{{foo}}</p>
+    <button @click="handleClick">click</button>
+  </div>
+  <script>
+    /*
+    虚拟DOM：是对DOM的JS抽象表示，是一个JS对象，能够描述DOM结构和关系。应用的各种变化会作用域虚拟DOM，最终映射到DOM上。
+    优点：
+    轻量、快速：通过新旧虚拟DOM对比可以得到最小DOM操作量，配合异步更新策略减少刷新频率，从而提升性能和用户体验
+    跨平台：将虚拟dom转换为不同运行时特殊操作实现跨平台
+    兼容性：还可以加入兼容性代码增强操作的兼容性
+    必要性：
+    vue1.0中有细粒度的数据变化检测，它是不需要虚拟DOM的，但是细粒度造成了大量内存开销，这对于大型项目来说是不可接受的。
+    因此，vue2.0选择了中等粒度的解决方案，每一个组件一个Watcher实例，这样状态变化时只能通知到组件，再通过引入虚拟DOM去进行对比和渲染。
+    */
+    /*
+    首先进行树级别比较，可能有三种情况：增删改。
+    new VNode不存在就删；
+    old VNode不存在就增；
+    都存在就比较两个VNode
+
+    比较两个VNode，包括三种类型操作：属性更新、文本更新、子节点更新
+    具体规则如下：
+    1.新老节点均有children子节点，则对子节点进行diff操作，调用updateChildren
+    2.如果老节点没有子节点而新节点存在子节点，先清空老节点的DOM内容，然后为当前DOM加入子节点
+    3.新节点没有子节点而老节点有子节点的时候，则移除该DOM节点的所有子节点
+    4.当新老节点都无子节点的时候，只是文本的替换
+    */
+    /*
+    diff算法(updateChildren方法中)：
+    */
+    const app = new Vue({
+      el: '#demo',
+      data: {
+        foo: 'foo'
+      },
+      methods: {
+        handleClick() {
+          this.foo = 'foooooo';
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
