@@ -1,20 +1,9 @@
-import * as React from "react";
-// import { Component, useState } from 'react';
-// import * as ReactDOM from 'react-dom';
-import Component from './imitation/component';
-import ReactDOM, { useState } from './imitation/react-dom-fiber';
-import './index.css';
-
-
-function FunctionComponent(props) {
-  const [count, setCount] = useState(0);
-  return (
-    <div className="border">
-      <p>{props.name}</p>
-      <button onClick={() => { setCount(count + 1) }}>{count}</button>
-    </div>
-  )
-}
+// import React, {Component} from "react";
+// import ReactDOM from "react-dom";
+import ReactDOM from "./imitation/react-dom";
+import Component from "./imitation/component";
+import { useState, useReducer } from './imitation/hook'
+import "./index.css";
 
 class ClassComponent extends Component {
   render() {
@@ -22,27 +11,57 @@ class ClassComponent extends Component {
       <div className="border">
         <p>{this.props.name}</p>
       </div>
-    )
+    );
   }
 }
 
-function UseFragmentComponent(props) {
+function FunctionComponent(props) {
+  const [count, setCount] = useState(0);
+  const [count2, setCount2] = useReducer((x) => x + 1, 0);
+  return (
+    <div className="border">
+      <p>{props.name}</p>
+      <p>{count}</p>
+      <button
+        onClick={() => {
+          setCount(count + 1);
+        }}>
+        click
+      </button>
+      <p>{count2}</p>
+      <button
+        onClick={() => {
+          setCount2(count2 + 1);
+        }}>
+        click
+      </button>
+    </div>
+  );
+}
+
+
+function FragmentComponent(props) {
   return (
     <>
-      <li>youfei</li>
-      <li>douluodalu</li>
+      <li>xiaozhan</li>
+      <li>wangyibo</li>
     </>
   )
 }
 
+
 const jsx = (
   <div className="border">
     <h1>全栈</h1>
-    <a href="https://www.baidu.com/">baiduyixia</a>
-    <FunctionComponent name="函数组件" />
-    <ClassComponent name="类组件" />
+    <a href="https://www.kaikeba.com/">kkb</a>
+    <FunctionComponent name="嘉恒" />
+    <ClassComponent name="class" />
+    <FragmentComponent />
     <ul>
-      <UseFragmentComponent />
+      <>
+        <li>0</li>
+        <li>1</li>
+      </>
     </ul>
   </div>
 );

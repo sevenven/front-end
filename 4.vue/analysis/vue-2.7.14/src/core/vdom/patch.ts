@@ -444,7 +444,7 @@ export function createPatchFunction(backend) {
       } else if (isUndef(oldEndVnode)) { // 边界情况处理
         oldEndVnode = oldCh[--oldEndIdx]
       } else if (sameVnode(oldStartVnode, newStartVnode)) {
-        // 情况一
+        // 情况一：旧首与新首比较是相同的节点
         patchVnode(
           oldStartVnode,
           newStartVnode,
@@ -455,7 +455,7 @@ export function createPatchFunction(backend) {
         oldStartVnode = oldCh[++oldStartIdx]
         newStartVnode = newCh[++newStartIdx]
       } else if (sameVnode(oldEndVnode, newEndVnode)) {
-        // 情况二
+        // 情况二：旧尾与新尾比较是相同的节点
         patchVnode(
           oldEndVnode,
           newEndVnode,
@@ -467,7 +467,7 @@ export function createPatchFunction(backend) {
         newEndVnode = newCh[--newEndIdx]
       } else if (sameVnode(oldStartVnode, newEndVnode)) {
         // Vnode moved right
-        // 情况三
+        // 情况三 旧首与新尾是相同节点
         patchVnode(
           oldStartVnode,
           newEndVnode,
@@ -483,9 +483,9 @@ export function createPatchFunction(backend) {
           )
         oldStartVnode = oldCh[++oldStartIdx]
         newEndVnode = newCh[--newEndIdx]
-      } else if (sameVnode(oldEndVnode, newStartVnode)) {
+      } else if (sameVnode(oldEndVnode, newStartVnode)) { 
         // Vnode moved left
-        // 情况四
+        // 情况四 旧尾与新首是相同节点
         patchVnode(
           oldEndVnode,
           newStartVnode,
@@ -499,11 +499,8 @@ export function createPatchFunction(backend) {
         newStartVnode = newCh[++newStartIdx]
       } else {
         // 情况五：猜测失败->循环比较
-        if (isUndef(oldKeyToIdx))
-          oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx)
-        idxInOld = isDef(newStartVnode.key)
-          ? oldKeyToIdx[newStartVnode.key]
-          : findIdxInOld(newStartVnode, oldCh, oldStartIdx, oldEndIdx)
+        if (isUndef(oldKeyToIdx)) oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx)
+        idxInOld = isDef(newStartVnode.key) ? oldKeyToIdx[newStartVnode.key] : findIdxInOld(newStartVnode, oldCh, oldStartIdx, oldEndIdx)
         if (isUndef(idxInOld)) {
           // New element
           // 没找着->新增
@@ -648,7 +645,7 @@ export function createPatchFunction(backend) {
       for (i = 0; i < cbs.update.length; ++i) cbs.update[i](oldVnode, vnode)
       if (isDef((i = data.hook)) && isDef((i = i.update))) i(oldVnode, vnode)
     }
-    // 新节点不存在文本
+    // 新节点不是文本节点
     if (isUndef(vnode.text)) {
       // 新老节点都有子节点
       if (isDef(oldCh) && isDef(ch)) {
@@ -658,17 +655,17 @@ export function createPatchFunction(backend) {
         if (__DEV__) {
           checkDuplicateKeys(ch)
         }
-        // 清空老的文本
+        // 如果老的节点是文本节点-什么情况一个文本节点会和一个元素节点进入patchVnode？！！
         if (isDef(oldVnode.text)) nodeOps.setTextContent(elm, '')
         // 创建并追加子节点
         addVnodes(elm, null, ch, 0, ch.length - 1, insertedVnodeQueue)
       } else if (isDef(oldCh)) { // 只有老节点有子节点
         // 删除子节点对应的DOM
         removeVnodes(oldCh, 0, oldCh.length - 1)
-      } else if (isDef(oldVnode.text)) { // 新节点没有子节点且老节点有文本
+      } else if (isDef(oldVnode.text)) { // 什么情况会走这儿？！！
         nodeOps.setTextContent(elm, '')
       }
-    } else if (oldVnode.text !== vnode.text) {
+    } else if (oldVnode.text !== vnode.text) { // 新老节点文本不相同
       // 修改文本
       nodeOps.setTextContent(elm, vnode.text)
     }
@@ -828,20 +825,21 @@ export function createPatchFunction(backend) {
 
     let isInitialPatch = false
     const insertedVnodeQueue: any[] = []
-    // 老的节点不存在
+    // 老的节点不存在-不知道什么情况会走到这里，初始化的时候老节点也是存在的 是一个真实DOM
     if (isUndef(oldVnode)) {
       // empty mount (likely as component), create new root element
       isInitialPatch = true
       // 直接创建新树
       createElm(vnode, insertedVnodeQueue)
-    } else { // 新老节点 都存在 || 都不存在
+    } else { // 新老节点都存在-初始化和更新都会走到这里
       const isRealElement = isDef(oldVnode.nodeType)
-      // 判断参数1是否是真实dom
+      // oldVnode不是真实DOM
       if (!isRealElement && sameVnode(oldVnode, vnode)) {
         // patch existing root node
-        // 更新操作：diff发生在这里面
+        // 更新操作
         patchVnode(oldVnode, vnode, insertedVnodeQueue, null, null, removeOnly)
-      } else {  // 页面初始化
+      } else {
+        // oldVnode是真实DOM---页面初始化
         if (isRealElement) {
           // mounting to a real element
           // check if this is server-rendered content and if we can perform

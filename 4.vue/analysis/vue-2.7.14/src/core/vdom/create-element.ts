@@ -43,6 +43,7 @@ export function createElement(
   return _createElement(context, tag, data, children, normalizationType)
 }
 
+// 接收节点信息 返回虚拟DOM
 export function _createElement(
   context: Component,
   tag?: string | Component | Function | Object,
@@ -87,10 +88,12 @@ export function _createElement(
   } else if (normalizationType === SIMPLE_NORMALIZE) {
     children = simpleNormalizeChildren(children)
   }
+  // vnode是最终要返回的虚拟DOM
   let vnode, ns
   if (typeof tag === 'string') {
     let Ctor
     ns = (context.$vnode && context.$vnode.ns) || config.getTagNamespace(tag)
+    // html保留标签 直接创建
     if (config.isReservedTag(tag)) {
       // platform built-in elements
       if (
@@ -117,6 +120,7 @@ export function _createElement(
       isDef((Ctor = resolveAsset(context.$options, 'components', tag)))
     ) {
       // component
+      // 自定义组件创建过程
       vnode = createComponent(Ctor, data, context, children, tag)
     } else {
       // unknown or unlisted namespaced elements

@@ -7,7 +7,7 @@ function objectFactory() {
 		res;
 	obj.__proto__ = constructor.prototype;
 	res = constructor.apply(obj, arguments);
-	return Object.prototype.toString.call(res) === '[object Object]' ? res : obj;
+	return res instanceof Object ? res : obj;
 }
 
 function Bar(name, age, gender) {

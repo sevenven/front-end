@@ -12,11 +12,48 @@
 			margin: 0;
 			padding: 0;
 		}
+		.page {
+			height: 100vh;
+			padding-top: 100px;
+			
+		}
+		.box {
+			width: 200px;
+			height: 200px;
+			border: 2px solid #ccc;
+			border-radius: 10px;
+			padding: 20px;
+			display: flex;
+			flex-wrap: wrap;
+			/* justify-content: space-between; */
+		 
+		}
+		.item {
+			width: 50px;
+			height: 50px;
+			margin-right: 10px;
+			/* border-radius: 50%; */
+			background-color: #666;
+		}
+		.item:nth-child(2) {
+			/* align-self: center; */
+		}
+		.item:nth-child(3) {
+			/* align-self: flex-end; */
+		}
 	</style>
 </head>
 
 <body>
 	<div class="page">
+		<div class="box">
+			<div class="item"></div>
+			<div class="item"></div>
+			<div class="item"></div>
+			<div class="item"></div>
+			<div class="item"></div>
+			<div class="item"></div>
+		</div>
 	</div>
 	<script type="text/javascript">
 		window.onload = function () {

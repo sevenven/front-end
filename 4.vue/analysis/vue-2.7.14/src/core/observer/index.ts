@@ -59,8 +59,8 @@ export class Observer {
     if (isArray(value)) {
       if (!mock) {
         if (hasProto) {
-          // 替换数组实例的隐式选型对象
           /* eslint-disable no-proto */
+          // 替换数组实例的隐式原型对象
           ; (value as any).__proto__ = arrayMethods
           /* eslint-enable no-proto */
         } else {
@@ -160,7 +160,7 @@ export function defineReactive(
     configurable: true,
     get: function reactiveGetter() {
       const value = getter ? getter.call(obj) : val
-      // 首次触发render函数的时候，会触发依赖收集
+      // 执行watch.get()的时候，会触发依赖收集
       if (Dep.target) {
         if (__DEV__) {
           dep.depend({

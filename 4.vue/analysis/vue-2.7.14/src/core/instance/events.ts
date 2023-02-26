@@ -12,6 +12,7 @@ import { updateListeners } from '../vdom/helpers/index'
 export function initEvents(vm: Component) {
   vm._events = Object.create(null)
   vm._hasHookEvent = false
+  // 自定义组件中真正做事件监听的是事件派发者自己
   // init parent attached events
   const listeners = vm.$options._parentListeners
   if (listeners) {

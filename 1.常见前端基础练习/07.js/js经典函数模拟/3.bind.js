@@ -6,13 +6,13 @@
 Function.prototype.bind2 = function (ctx) {
   var _self = this,
     args1 = Array.prototype.slice.call(arguments, 1),
-    noop = function () { };
+    // noop = function () { };
   var bindFn = function () {
     var args2 = Array.prototype.slice.call(arguments);
     return _self.apply(this instanceof _self ? this : ctx, args1.concat(args2));
   }
-  noop.prototype = this.prototype;
-  bindFn.prototype = new noop();
+  // noop.prototype = this.prototype;
+  // bindFn.prototype = new noop();
   return bindFn;
 }
 

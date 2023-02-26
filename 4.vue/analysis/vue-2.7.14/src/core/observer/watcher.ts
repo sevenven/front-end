@@ -160,9 +160,11 @@ export default class Watcher implements DepTarget {
   addDep(dep: Dep) {
     const id = dep.id
     if (!this.newDepIds.has(id)) {
+      // watcher要知道哪些dep和它有关
       this.newDepIds.add(id)
       this.newDeps.push(dep)
       if (!this.depIds.has(id)) {
+        // dep要知道哪些watcher和它有关
         dep.addSub(this)
       }
     }

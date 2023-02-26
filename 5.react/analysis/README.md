@@ -1,110 +1,70 @@
-源码文件指引地址：https://www.processon.com/view/link/5dd68342e4b001fa2e0c4697
+# Getting Started with Create React App
 
-##说明
-本项目用于调试源码，即修改配置使得项目中引用的 react 包来自 src/react，使得我们可以在 src/react 下 debug 和打 log 调试。
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-##使用步骤
+## Available Scripts
 
-1. 在根目录下安装： npm install
-2. 解压 src 下的 react（v16.13.1） 压缩包，源码中有些配置需要修改，压缩包里我已经修改完，你只需要直接解压即可。
-3. 在根目录下启动： npm start
+In the project directory, you can run:
 
+### `npm start`
 
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-##其他修改
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-### 修改配置
+### `npm test`
 
-src下有个CONST配置文件，可以运行源码的src/react或者是运行学习使用的kreact，自己选择就行了。
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-如果报错找不到CONST文件，看下你本地的文件名是const还是CONST，保证代码中的引入文件名和本地文件名一致。
+### `npm run build`
 
-### 修改react包
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-如果想要自己重新 clone react，有以下 5 个文件需要更改：
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-1. /src/react/packages/react-reconciler/src/ReactFiberHostConfig.js
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-```jsx
-//invariant(false, 'This module must be shimmed by a specific renderer.'); //sy
-export * from "./forks/ReactFiberHostConfig.dom";
-```
+### `npm run eject`
 
-2. /src/react/packages/shared/invariant.js
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-```jsx
-export default function invariant(condition, format, a, b, c, d, e, f) {
-  if (condition) return; //加上这个
-  throw new Error(
-    "Internal React error: invariant() is meant to be replaced at compile " +
-      "time. There is no runtime version."
-  );
-}
-```
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-3. /src/react/packages/shared/ReactSharedInternals.js
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-```jsx
-// import React from 'react';
-// const ReactSharedInternals =
-//   React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-import ReactSharedInternals from "../react/src/ReactSharedInternals";
-export default ReactSharedInternals;
-```
+## Learn More
 
-4. /src/react/packages/scheduler/index.js
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-   ```jsx
-   "use strict";
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-   export * from "./src/Scheduler";
-   //添加以下
-   export {
-     unstable_flushAllWithoutAsserting,
-     unstable_flushNumberOfYields,
-     unstable_flushExpired,
-     unstable_clearYields,
-     unstable_flushUntilNextPaint,
-     unstable_flushAll,
-     unstable_yieldValue,
-     unstable_advanceTime
-   } from "./src/SchedulerHostConfig.js";
-   ```
+### Code Splitting
 
-5. react/packages/scheduler/src/SchedulerHostConfig.js
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-```js
-// 注释掉这里
-// throw new Error('This module must be shimmed by a specific build.');
+### Analyzing the Bundle Size
 
-// 添加以下
-export {
-  unstable_flushAllWithoutAsserting,
-  unstable_flushNumberOfYields,
-  unstable_flushExpired,
-  unstable_clearYields,
-  unstable_flushUntilNextPaint,
-  unstable_flushAll,
-  unstable_yieldValue,
-  unstable_advanceTime
-} from "./forks/SchedulerHostConfig.mock.js";
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-export {
-  requestHostCallback,
-  requestHostTimeout,
-  cancelHostTimeout,
-  shouldYieldToHost,
-  getCurrentTime,
-  forceFrameRate,
-  requestPaint
-} from "./forks/SchedulerHostConfig.default.js";
-```
+### Making a Progressive Web App
 
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
+### Advanced Configuration
 
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### 参考：
+### Deployment
 
-https://github.com/nannongrousong/blog/issues/1
-https://github.com/bubucuo/react-sourcecode-debug-env
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

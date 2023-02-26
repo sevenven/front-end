@@ -166,6 +166,7 @@ function callActivatedHooks(queue) {
  */
 export function queueWatcher(watcher: Watcher) {
   const id = watcher.id
+  // watcher.id不在队列里才需要入队
   if (has[id] != null) {
     return
   }

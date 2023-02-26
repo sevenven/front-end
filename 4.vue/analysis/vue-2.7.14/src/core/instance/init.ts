@@ -58,16 +58,16 @@ export function initMixin(Vue: typeof Component) {
     // expose real self
     // vue初始化过程
     vm._self = vm
-    // 初始化声明周期相关属性 如 $root $children
+    // 声明生命周期相关属性 如 $root $children
     initLifecycle(vm)
-    // 自定义事件监听
+    // 处理自定义事件
     initEvents(vm)
-    // 插槽解析 _c/$createElement()声明
+    // 处理插槽信息 _c/$createElement()声明
     initRender(vm)
     callHook(vm, 'beforeCreate', undefined, false /* setContext */)
     // 组件通信-注入
     initInjections(vm) // resolve injections before data/props
-    // 初始化组件各种状态 props/method/data 
+    // 组件状态初始化、响应式 props/method/data
     initState(vm)
     // 组件通信-提供数据
     initProvide(vm) // resolve provide after data/props
@@ -80,7 +80,7 @@ export function initMixin(Vue: typeof Component) {
       measure(`vue ${vm._name} init`, startTag, endTag)
     }
 
-    // 挂载
+    // 如果设置了el选项，自动执行$mount
     if (vm.$options.el) {
       vm.$mount(vm.$options.el)
     }
