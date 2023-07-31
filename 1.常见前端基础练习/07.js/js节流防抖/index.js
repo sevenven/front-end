@@ -1,21 +1,20 @@
 // 节流
 function throttle(fn, delay) {
-  let timer = null
+  let timer = null;
   return () => {
     if (!timer) {
       timer = setTimeout(() => {
-        fn();
+        fn(...args);
         timer = null;
-      }, delay)
+      }, delay);
     }
-  }
+  };
 }
 
 window.onscroll = throttle(function () {
   var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-  console.log('滚动条位置：' + scrollTop);
-}, 200)
-
+  console.log("滚动条位置：" + scrollTop);
+}, 200);
 
 // 防抖
 function debounce(fn, delay) {
@@ -24,11 +23,13 @@ function debounce(fn, delay) {
     if (timer) {
       clearTimeout(timer);
     }
-    timer = setTimeout(fn, delay);
-  }
+    timer = setTimeout(() => {
+      fn(...args);
+    }, delay);
+  };
 }
 
 window.onscroll = debounce(function () {
   var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-  console.log('滚动条位置：' + scrollTop);
-}, 200)
+  console.log("滚动条位置：" + scrollTop);
+}, 200);
