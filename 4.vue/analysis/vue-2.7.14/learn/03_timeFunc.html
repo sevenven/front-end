@@ -1,41 +1,45 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vue源码剖析</title>
-  <script src="../dist/vue.js"></script>
-</head>
-<body>
-  <div id="demo">
-    <h1>异步更新</h1>
-    <p id="p1">{{foo}}</p>
-    <p id="p2">{{bar}}</p>
-    <button @click="handleClick">click</button>
-  </div>
-  <script>
-    /*
-      vue更新dom是异步的
-      vue更新dom是批量的 
-    */
-    const app = new Vue({
-      el: '#demo',
-      data: {
-        foo: 'foo',
-        bar: 'bar'
-      },
-      methods: {
-        handleClick () {
-          this.foo = 'foo01';
-          this.foo = 'foo02';
-          this.foo = 'foo03';
-          console.log(p1.innerHTML);
-          this.$nextTick(() => {
-            console.log(p1.innerHTML);
-          })
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue源码剖析</title>
+    <script src="../dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="demo">
+      <h1>异步更新</h1>
+      <p id="p1">{{foo}}</p>
+      <p id="p2">{{bar}}</p>
+      <button @click="handleClick">click</button>
+    </div>
+    <script>
+      // vue更新dom是异步的
+      // vue更新dom是批量的
+      const app = new Vue({
+        el: '#demo',
+        data: {
+          foo: 'foo',
+          bar: 'bar'
+        },
+        methods: {
+          handleClick() {
+            this.foo = 'foo01'
+            console.log('1：', this.foo)
+            this.foo = 'foo02'
+            console.log('2：', this.foo)
+            this.foo = 'foo03'
+            console.log('3：', this.foo)
+            console.log('p1.innerHTML~：', p1.innerHTML)
+            Promise.resolve().then(() => {
+              console.log('promise p1.innerHTML~~：', p1.innerHTML)
+            })
+            this.$nextTick(() => {
+              console.log('p1.innerHTML~~：', p1.innerHTML)
+            })
+          }
         }
-      }
-    });
-  </script>
-</body>
+      })
+    </script>
+  </body>
 </html>

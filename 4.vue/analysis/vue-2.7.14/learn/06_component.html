@@ -1,56 +1,54 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue源码剖析</title>
+    <script src="../dist/vue.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vue源码剖析</title>
-  <script src="../dist/vue.js"></script>
-</head>
-
-<body>
-  <div id="demo">
-    <!-- <h1>Vue组件化</h1> -->
-    <p @click="handleClick">{{foo}}</p>
-    <comp-a @myclick="handleClick"></comp-a>
-    <!-- <br /> -->
-    <!-- <comp-b @myclick="handleClick">{{hhhhhh}}</comp-b> -->
-  </div>
-  <script>
-
-    // 全局注册
-    Vue.component('comp-a', {
-      template: '<button @click="handleCilck">comp-a button</button>',
-      methods: {
-        handleCilck() {
-          this.$emit('myclick');
-        }
-      }
-    })
-    const app = new Vue({
-      el: '#demo',
-      // 局部注册
-      components: {
-        'comp-b': {
-          template: '<button @click="handleCilck">comp-b button</button>',
-          methods: {
-            handleCilck() {
-              this.$emit('myclick');
-            }
+  <body>
+    <div id="demo">
+      <!-- <h1>Vue组件化</h1> -->
+      <p @click="handleClick">{{foo}}</p>
+      <comp-a @myclick="handleClick"></comp-a>
+      <!-- <br /> -->
+      <!-- <comp-b @myclick="handleClick">{{hhhhhh}}</comp-b> -->
+    </div>
+    <script>
+      // 全局注册
+      Vue.component('comp-a', {
+        template: '<button @click="handleCilck">comp-a button</button>',
+        methods: {
+          handleCilck() {
+            this.$emit('myclick')
           }
         }
-      },
-      data: {
-        foo: 'foo'
-      },
-      methods: {
-        handleClick() {
-          this.foo = 'fooooo';
+      })
+      debugger
+      const app = new Vue({
+        el: '#demo',
+        // 局部注册
+        components: {
+          'comp-b': {
+            template: '<button @click="handleCilck">comp-b button</button>',
+            methods: {
+              handleCilck() {
+                this.$emit('myclick')
+              }
+            }
+          }
+        },
+        data: {
+          foo: 'foo'
+        },
+        methods: {
+          handleClick() {
+            this.foo = 'fooooo'
+          }
         }
-      }
-    });
-    console.log(app.$options.components)
-  </script>
-</body>
-
+      })
+      console.log(app.$options.components)
+    </script>
+  </body>
 </html>
