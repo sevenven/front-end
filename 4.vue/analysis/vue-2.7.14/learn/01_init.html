@@ -1,53 +1,51 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vue源码剖析</title>
-  <!-- 该版本 umd带编译器 -->
-  <script src="../dist/vue.js"></script>
-  <!-- 
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue源码剖析</title>
+    <!-- 该版本 umd带编译器 -->
+    <script src="../dist/vue.js"></script>
+    <!--
     common: nodejs模块cjs，适用于服务端
     esm: es模块化规范，平常开发环境可用，webpack中esm可支持treeshaking
     umd: universal module definition, 兼容common和amd规范 常用于浏览器
     runtime: 说明输出的库仅有核心的运行时代码没有编译器
    -->
-  <!-- cli中使用的版本：vue.runtime.esm.js 版本 -->
-</head>
+    <!-- cli中使用的版本：vue.runtime.esm.js 版本 -->
+  </head>
 
-<body>
-  <!-- 
+  <body>
+    <!--
     Vue2.0对比Vue1.0最大的变化
     引入虚拟dom Watcher实例从对应一个表达式变为对应一个组件
    -->
 
-  <div id="demo">
-    <h1>初始化流程</h1>
-    <p>{{foo}}</p>
-  </div>
-  <!-- 
+    <div id="demo">
+      <h1>初始化流程</h1>
+      <p>{{foo}}</p>
+    </div>
+    <!--
     new Vue()都做了什么
     https://naotu.baidu.com/file/a8f9587fed04c0f400996cfac396b052
   -->
-  <script>
-    // $mount最重要的几个步骤el => template => render => dom
-    // 生成dom的几个选项优先级：render > template > el
-    const app = new Vue({
-      // render(createElement) {
-      //   return createElement('div', {
-      //     attrs: {
-      //       id: '#demo1'
-      //     }
-      //   }, 'render')
-      // },
-      // template: '<div>template</div>',
-      el: '#demo',
-      data: {
-        foo: 'foo'
-      }
-    });
-  </script>
-</body>
-
+    <script>
+      // $mount最重要的几个步骤el => template => render => dom
+      // 生成dom的几个选项优先级：render > template > el
+      const app = new Vue({
+        // render(createElement) {
+        //   return createElement('div', {
+        //     attrs: {
+        //       id: '#demo1'
+        //     }
+        //   }, 'render')
+        // },
+        // template: '<div>template</div>',
+        el: '#demo',
+        data: {
+          foo: 'foo'
+        }
+      })
+    </script>
+  </body>
 </html>

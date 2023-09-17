@@ -53,7 +53,7 @@ export class Observer {
     // this.value = value
     this.dep = mock ? mockDep : new Dep()
     this.vmCount = 0
-    // 为什么一个对象要有一个—__ob__伴随？
+    // 为什么一个对象要有一个__ob__伴随？
     // 动态属性加入删除或者数组元素加入删除的时候做变更通知
     def(value, '__ob__', this)
     if (isArray(value)) {
@@ -61,7 +61,7 @@ export class Observer {
         if (hasProto) {
           /* eslint-disable no-proto */
           // 替换数组实例的隐式原型对象
-          ; (value as any).__proto__ = arrayMethods
+          ;(value as any).__proto__ = arrayMethods
           /* eslint-enable no-proto */
         } else {
           for (let i = 0, l = arrayKeys.length; i < l; i++) {
@@ -259,7 +259,7 @@ export function set(
     __DEV__ &&
       warn(
         'Avoid adding reactive properties to a Vue instance or its root $data ' +
-        'at runtime - declare it upfront in the data option.'
+          'at runtime - declare it upfront in the data option.'
       )
     return val
   }
@@ -302,7 +302,7 @@ export function del(target: any[] | object, key: any) {
     __DEV__ &&
       warn(
         'Avoid deleting properties on a Vue instance or its root $data ' +
-        '- just set it to null.'
+          '- just set it to null.'
       )
     return
   }

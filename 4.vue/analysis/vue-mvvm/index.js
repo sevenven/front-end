@@ -6,8 +6,8 @@ function MVVM(options) {
 
   // 在vm上代理data属性
   Object.keys(this.$data).forEach(function (key) {
-    vm._proxyData(key)
-  })
+    vm._proxyData(key);
+  });
 
   // 递归遍历data属性，对每一项进行代理
   observe(this.$data);
@@ -25,6 +25,6 @@ MVVM.prototype._proxyData = function (key) {
     },
     set(newVal) {
       this.$data[key] = newVal;
-    }
-  })
-}
+    },
+  });
+};
