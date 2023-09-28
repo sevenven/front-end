@@ -226,7 +226,6 @@ const builds = {
 }
 
 function genConfig(name) {
-  debugger
   const opts = builds[name]
   const isTargetingBrowser = !(
     opts.transpile === false || opts.format === 'cjs'
@@ -297,7 +296,6 @@ function genConfig(name) {
 
   return config
 }
-
 if (process.env.TARGET) {
   module.exports = genConfig(process.env.TARGET)
 } else {

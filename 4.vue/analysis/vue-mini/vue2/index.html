@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>模拟MVVM</title>
+    <script src="kvue.js"></script>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script>
+      const app = new KVue({
+        el: "#app",
+        data: {
+          counter: 1,
+        },
+        render(h) {
+          // return h("h3", null, this.counter + "");
+          return h("div", null, [
+            h("p", null, this.counter + ""),
+            h("p", null, this.counter + ""),
+            h("p", null, this.counter + ""),
+          ]);
+        },
+      });
+      // setInterval(() => {
+      //   app.counter++;
+      // }, 1000);
+    </script>
+  </body>
+</html>
