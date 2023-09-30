@@ -15,7 +15,8 @@ class KVue {
     this.$el = document.querySelector(el);
     // 设置组件更新函数
     const updateComponent = () => {
-      this._update(this.$options.render.call(this, this.$createElement));
+      const vnode = this.$options.render.call(this, this.$createElement);
+      this._update(vnode);
     };
     // 创建组件对应的watcher的实例
     new Watcher(this, updateComponent);
@@ -38,6 +39,7 @@ class KVue {
       // 更新操作
       this.__patch__(prevVnode, vnode);
     }
+    this._vnode = vnode;
   }
 
   __patch__(oldVnode, vnode) {
@@ -48,10 +50,37 @@ class KVue {
       parent.insertBefore(el, refElm);
       parent.removeChild(oldVnode);
     } else {
-      this.createElm(vnode);
+      const el = (vnode.el = oldVnode.el);
+      if (oldVnode.tag === vnode.tag) {
+        const oldCh = oldVnode.children;
+        const newCh = vnode.children;
+        if (typeof newCh === "string") {
+          if (typeof oldCh === "string") {
+            // 双方都是text且不相等
+            if (newCh !== oldCh) {
+              el.textContent = newCh;
+            }
+          } else {
+            // oldCh是element数组, newCh是text
+            el.textContent = newCh;
+          }
+        } else {
+          if (typeof oldCh === "string") {
+            // oldCh是string newCh是element
+            el.innerHTML = "";
+            newCh.forEach((child) => el.appendChild(this.createElm(child)));
+          } else {
+            // 双方均是element数组
+            this.updateChildren(el, oldCh, newCh);
+          }
+        }
+      } else {
+      }
+      // this.createElm(vnode);
     }
   }
 
+  // 递归创建dom元素
   createElm(vnode) {
     const el = document.createElement(vnode.tag);
     // props--todo
@@ -64,8 +93,25 @@ class KVue {
         });
       }
     }
+    // 建立vnode和el之间的关系，未来更新需要使用
     vnode.el = el;
     return el;
+  }
+
+  updateChildren(parentElm, oldCh, newCh) {
+    const len = Math.min(oldCh.length, newCh.length);
+    for (let i = 0; i < len; i++) {
+      this.__patch__(oldCh[i], newCh[i]);
+    }
+    if (newCh.length > oldCh.length) {
+      // 需要新增元素
+      newCh
+        .slice(len)
+        .forEach((child) => parentElm.appendChild(this.createElm(child)));
+    } else if (newCh.length < oldCh.length) {
+      // 需要删除元素
+      oldCh.slice(len).forEach((child) => parentElm.removeChild(child.el));
+    }
   }
 }
 
