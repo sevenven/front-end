@@ -17,6 +17,7 @@ Watcher.prototype.get = function () {
 
 // Dep中调用
 // data项发生变化时更新对应的界面
+// 目前这种写法是不支持动态添加依赖的
 Watcher.prototype.update = function () {
   var val = getVMVal(this.vm, this.exp);
   if (val !== this.val) {

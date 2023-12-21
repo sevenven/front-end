@@ -25,17 +25,20 @@
         methods: {
           handleClick() {
             this.foo = 'foo01'
-            console.log('1：', this.foo)
+            console.log('1：', this.foo) // foo01
             this.foo = 'foo02'
-            console.log('2：', this.foo)
+            console.log('2：', this.foo) // foo02
             this.foo = 'foo03'
-            console.log('3：', this.foo)
-            console.log('p1.innerHTML~：', p1.innerHTML)
+            console.log('3：', this.foo) // foo03
+            console.log('p1.innerHTML~：', p1.innerHTML) // foo
             Promise.resolve().then(() => {
               console.log('promise p1.innerHTML~~：', p1.innerHTML)
             })
+            // vue异步批量更新策略的实际执行者
+            // nextTick接收一个回调去callback中排队
+            // 对于开发者来说常在数据变化需要访问最新变化的值的时候使用
             this.$nextTick(() => {
-              console.log('p1.innerHTML~~：', p1.innerHTML)
+              console.log('nextTick--p1.innerHTML~~：', p1.innerHTML) // foo03
             })
           }
         }

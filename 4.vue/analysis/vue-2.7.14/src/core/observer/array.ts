@@ -27,8 +27,8 @@ methodsToPatch.forEach(function (method) {
   // cache original method
   const original = arrayProto[method]
   def(arrayMethods, method, function mutator(...args) {
+    // 执行数组原始行为
     const result = original.apply(this, args)
-    // 数组对象的ob
     const ob = this.__ob__
     let inserted
     switch (method) {
@@ -42,7 +42,7 @@ methodsToPatch.forEach(function (method) {
     }
     // 新元素响应式处理
     if (inserted) ob.observeArray(inserted)
-    // notify change
+    // 派发更新
     if (__DEV__) {
       ob.dep.notify({
         type: TriggerOpTypes.ARRAY_MUTATION,

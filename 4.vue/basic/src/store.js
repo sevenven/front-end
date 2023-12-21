@@ -7,6 +7,18 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   // 状态、数据
   state: { count: 0 },
+  getters: {
+    left(state) {
+      // 计算剩余数量
+      return 10 - state.count;
+    },
+  },
+  // 更改状态的函数
+  mutations: {
+    increment(state) {
+      state.count += 1;
+    },
+  },
   // 一步操作
   actions: {
     asyncIncrement({ commit, getters }) {
@@ -22,18 +34,6 @@ export default new Vuex.Store({
           reject();
         }, 1000);
       });
-    },
-  },
-  // 更改状态的函数
-  mutations: {
-    increment(state) {
-      state.count += 1;
-    },
-  },
-  getters: {
-    left(state) {
-      // 计算剩余数量
-      return 10 - state.count;
     },
   },
 });

@@ -20,8 +20,7 @@ export default {
   },
   methods: {
     add() {
-      if (this.$store.getters.left) 
-        this.$store.commit("increment");
+      if (this.$store.getters.left) this.$store.commit("increment");
     },
     asyncAdd() {
       this.$store.dispatch("asyncIncrement").catch(() => {

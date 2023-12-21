@@ -60,19 +60,19 @@ export function initLifecycle(vm: Component) {
 
 export function lifecycleMixin(Vue: typeof Component) {
   Vue.prototype._update = function (vnode: VNode, hydrating?: boolean) {
+    debugger
     const vm: Component = this
     const prevEl = vm.$el
+    // 上次生成的虚拟dom
     const prevVnode = vm._vnode
     const restoreActiveInstance = setActiveInstance(vm)
     vm._vnode = vnode
     // Vue.prototype.__patch__ is injected in entry points
     // based on the rendering backend used.
     if (!prevVnode) {
-      // initial render
       // 如果上次没有vnode 说明是首次挂载初始化
       vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false /* removeOnly */)
     } else {
-      // updates
       // 更新
       vm.$el = vm.__patch__(prevVnode, vnode)
     }
@@ -177,6 +177,7 @@ export function mountComponent(
   }
   callHook(vm, 'beforeMount')
 
+  // 组件更新函数
   let updateComponent
   /* istanbul ignore if */
   if (__DEV__ && config.performance && mark) {

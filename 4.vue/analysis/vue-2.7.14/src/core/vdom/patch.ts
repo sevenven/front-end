@@ -154,10 +154,10 @@ export function createPatchFunction(backend) {
         if (isUnknownElement(vnode, creatingElmInVPre)) {
           warn(
             'Unknown custom element: <' +
-            tag +
-            '> - did you ' +
-            'register the component correctly? For recursive components, ' +
-            'make sure to provide the "name" option.',
+              tag +
+              '> - did you ' +
+              'register the component correctly? For recursive components, ' +
+              'make sure to provide the "name" option.',
             vnode.context
           )
         }
@@ -439,9 +439,11 @@ export function createPatchFunction(backend) {
     }
 
     while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
-      if (isUndef(oldStartVnode)) { // 边界情况处理
+      if (isUndef(oldStartVnode)) {
+        // 边界情况处理
         oldStartVnode = oldCh[++oldStartIdx] // Vnode has been moved left
-      } else if (isUndef(oldEndVnode)) { // 边界情况处理
+      } else if (isUndef(oldEndVnode)) {
+        // 边界情况处理
         oldEndVnode = oldCh[--oldEndIdx]
       } else if (sameVnode(oldStartVnode, newStartVnode)) {
         // 情况一：旧首与新首比较是相同的节点
@@ -475,6 +477,7 @@ export function createPatchFunction(backend) {
           newCh,
           newEndIdx
         )
+        // 额外的节点移动
         canMove &&
           nodeOps.insertBefore(
             parentElm,
@@ -483,7 +486,7 @@ export function createPatchFunction(backend) {
           )
         oldStartVnode = oldCh[++oldStartIdx]
         newEndVnode = newCh[--newEndIdx]
-      } else if (sameVnode(oldEndVnode, newStartVnode)) { 
+      } else if (sameVnode(oldEndVnode, newStartVnode)) {
         // Vnode moved left
         // 情况四 旧尾与新首是相同节点
         patchVnode(
@@ -493,14 +496,19 @@ export function createPatchFunction(backend) {
           newCh,
           newStartIdx
         )
+        // 额外的节点移动
         canMove &&
           nodeOps.insertBefore(parentElm, oldEndVnode.elm, oldStartVnode.elm)
         oldEndVnode = oldCh[--oldEndIdx]
         newStartVnode = newCh[++newStartIdx]
       } else {
-        // 情况五：猜测失败->循环比较
-        if (isUndef(oldKeyToIdx)) oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx)
-        idxInOld = isDef(newStartVnode.key) ? oldKeyToIdx[newStartVnode.key] : findIdxInOld(newStartVnode, oldCh, oldStartIdx, oldEndIdx)
+        // 情况五：首尾查找没有找到相同的
+        // 拿出新数组开头的第一个去老数组中查找
+        if (isUndef(oldKeyToIdx))
+          oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx)
+        idxInOld = isDef(newStartVnode.key)
+          ? oldKeyToIdx[newStartVnode.key]
+          : findIdxInOld(newStartVnode, oldCh, oldStartIdx, oldEndIdx)
         if (isUndef(idxInOld)) {
           // New element
           // 没找着->新增
@@ -589,6 +597,7 @@ export function createPatchFunction(backend) {
     }
   }
 
+  // diff原因：一个组件只有一个watcher，为了知道具体变化的值，需要将新旧vnode做对比，从而得到不同点，再把这些不同点转换成相对应的dom操作，从而做到较为高效的更新
   function patchVnode(
     oldVnode,
     vnode,
@@ -645,13 +654,14 @@ export function createPatchFunction(backend) {
       for (i = 0; i < cbs.update.length; ++i) cbs.update[i](oldVnode, vnode)
       if (isDef((i = data.hook)) && isDef((i = i.update))) i(oldVnode, vnode)
     }
-    // 新节点不是文本节点
+    // 新节点是元素节点
     if (isUndef(vnode.text)) {
       // 新老节点都有子节点
       if (isDef(oldCh) && isDef(ch)) {
         if (oldCh !== ch)
           updateChildren(elm, oldCh, ch, insertedVnodeQueue, removeOnly)
-      } else if (isDef(ch)) { // 只有新节点有子节点
+      } else if (isDef(ch)) {
+        // 只有新节点有子节点
         if (__DEV__) {
           checkDuplicateKeys(ch)
         }
@@ -659,14 +669,17 @@ export function createPatchFunction(backend) {
         if (isDef(oldVnode.text)) nodeOps.setTextContent(elm, '')
         // 创建并追加子节点
         addVnodes(elm, null, ch, 0, ch.length - 1, insertedVnodeQueue)
-      } else if (isDef(oldCh)) { // 只有老节点有子节点
+      } else if (isDef(oldCh)) {
+        // 只有老节点有子节点
         // 删除子节点对应的DOM
         removeVnodes(oldCh, 0, oldCh.length - 1)
-      } else if (isDef(oldVnode.text)) { // 什么情况会走这儿？！！
+      } else if (isDef(oldVnode.text)) {
+        // 什么情况一个文本节点会和一个元素节点进入patchVnode？！！
         nodeOps.setTextContent(elm, '')
       }
-    } else if (oldVnode.text !== vnode.text) { // 新老节点文本不相同
-      // 修改文本
+    } else if (oldVnode.text !== vnode.text) {
+      // 新节点是文本节点
+      // 1.老节点是文本节点且不相同 2.老节点是元素节点--》oldVnode.text !== vnode.text--什么情况一个文本节点会和一个元素节点进入patchVnode？！！
       nodeOps.setTextContent(elm, vnode.text)
     }
     if (isDef(data)) {
@@ -807,7 +820,7 @@ export function createPatchFunction(backend) {
         vnode.tag.indexOf('vue-component') === 0 ||
         (!isUnknownElement(vnode, inVPre) &&
           vnode.tag.toLowerCase() ===
-          (node.tagName && node.tagName.toLowerCase()))
+            (node.tagName && node.tagName.toLowerCase()))
       )
     } else {
       return node.nodeType === (vnode.isComment ? 8 : 3)
@@ -831,7 +844,8 @@ export function createPatchFunction(backend) {
       isInitialPatch = true
       // 直接创建新树
       createElm(vnode, insertedVnodeQueue)
-    } else { // 新老节点都存在-初始化和更新都会走到这里
+    } else {
+      // 新老节点都存在-初始化和更新都会走到这里
       const isRealElement = isDef(oldVnode.nodeType)
       // oldVnode不是真实DOM
       if (!isRealElement && sameVnode(oldVnode, vnode)) {
@@ -855,10 +869,10 @@ export function createPatchFunction(backend) {
             } else if (__DEV__) {
               warn(
                 'The client-side rendered virtual DOM tree is not matching ' +
-                'server-rendered content. This is likely caused by incorrect ' +
-                'HTML markup, for example nesting block-level elements inside ' +
-                '<p>, or missing <tbody>. Bailing hydration and performing ' +
-                'full client-side render.'
+                  'server-rendered content. This is likely caused by incorrect ' +
+                  'HTML markup, for example nesting block-level elements inside ' +
+                  '<p>, or missing <tbody>. Bailing hydration and performing ' +
+                  'full client-side render.'
               )
             }
           }
@@ -869,11 +883,13 @@ export function createPatchFunction(backend) {
         }
 
         // replacing existing element
+        // 获取宿主元素
         const oldElm = oldVnode.elm
+        // 获取宿主元素的parantNode
         const parentElm = nodeOps.parentNode(oldElm)
 
         // create new node
-        // 将传入根节点直接创建为dom
+        // 递归创建整棵树并追加到oldElm后面
         createElm(
           vnode,
           insertedVnodeQueue,
@@ -916,6 +932,7 @@ export function createPatchFunction(backend) {
 
         // destroy old node
         if (isDef(parentElm)) {
+          // 删掉原先的模版内容
           removeVnodes([oldVnode], 0, 0)
         } else if (isDef(oldVnode.tag)) {
           invokeDestroyHook(oldVnode)

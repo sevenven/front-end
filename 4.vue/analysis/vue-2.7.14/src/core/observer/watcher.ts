@@ -198,8 +198,10 @@ export default class Watcher implements DepTarget {
   update() {
     /* istanbul ignore else */
     if (this.lazy) {
+      // computed
       this.dirty = true
     } else if (this.sync) {
+      // watch --> flush?: 'pre' | 'post' | 'sync' // default: 'pre'
       this.run()
     } else {
       queueWatcher(this)

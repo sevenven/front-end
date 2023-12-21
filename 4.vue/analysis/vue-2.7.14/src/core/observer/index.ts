@@ -50,17 +50,20 @@ export class Observer {
   vmCount: number // number of vms that have this object as root $data
 
   constructor(public value: any, public shallow = false, public mock = false) {
-    // this.value = value
+    this.value = value
+    // 这儿的dep的作用是？
+    // 为什么一个value要有一个__ob__伴随？
+    // --> 【Vue.set|delete添加删除属性|数组元素添加删除】的时候做变更通知需要---dep负责持有watcher
     this.dep = mock ? mockDep : new Dep()
     this.vmCount = 0
-    // 为什么一个对象要有一个__ob__伴随？
-    // 动态属性加入删除或者数组元素加入删除的时候做变更通知
     def(value, '__ob__', this)
+    // 分辨传入对象的类型
     if (isArray(value)) {
+      // 数组
       if (!mock) {
+        // 现代浏览器--》替换数组实例的隐式原型对象
         if (hasProto) {
           /* eslint-disable no-proto */
-          // 替换数组实例的隐式原型对象
           ;(value as any).__proto__ = arrayMethods
           /* eslint-enable no-proto */
         } else {
@@ -71,14 +74,11 @@ export class Observer {
         }
       }
       if (!shallow) {
+        // 遍历数组元素做响应式
         this.observeArray(value)
       }
     } else {
-      /**
-       * Walk through all properties and convert them into
-       * getter/setters. This method should only be called when
-       * value type is Object.
-       */
+      // 对象
       const keys = Object.keys(value)
       for (let i = 0; i < keys.length; i++) {
         const key = keys[i]
@@ -109,7 +109,7 @@ export function observe(
   shallow?: boolean,
   ssrMockReactivity?: boolean
 ): Observer | void {
-  // 已经是响应式对象，直接返回即可，不做重复处理
+  // 如果已经做过响应式处理，则直接返回ob
   if (value && hasOwn(value, '__ob__') && value.__ob__ instanceof Observer) {
     return value.__ob__
   }
@@ -122,6 +122,7 @@ export function observe(
     !isRef(value) &&
     !(value instanceof VNode)
   ) {
+    // 将传入的value做响应式处理
     return new Observer(value, shallow, ssrMockReactivity)
   }
 }
@@ -160,8 +161,9 @@ export function defineReactive(
     configurable: true,
     get: function reactiveGetter() {
       const value = getter ? getter.call(obj) : val
-      // 执行watch.get()的时候，会触发依赖收集
+      // Dep.target存在，说明此次get的触发者是一个watcher
       if (Dep.target) {
+        // 触发依赖收集
         if (__DEV__) {
           dep.depend({
             target: obj,
@@ -173,9 +175,10 @@ export function defineReactive(
         }
         // 如果存在子ob
         if (childOb) {
-          // 子ob要和当前watcher建立关系
+          // 子ob收集当前watcher
           childOb.dep.depend()
           if (isArray(value)) {
+            // 如果是数组，数组内部的所有项也需要递归的做子ob收集当前watcher处理
             dependArray(value)
           }
         }
