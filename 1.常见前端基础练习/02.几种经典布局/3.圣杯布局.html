@@ -1,95 +1,93 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>3.圣杯布局</title>
+    <style type="text/css">
+      * {
+        padding: 0;
+        margin: 0;
+      }
 
-<head>
-	<meta charset="UTF-8">
-	<title>3.圣杯布局</title>
-	<style type="text/css">
-		* {
-			padding: 0;
-			margin: 0;
-		}
+      #header,
+      #footer {
+        min-width: 600px;
+        height: 20px;
+        text-align: center;
+        background: pink;
+      }
 
-		#header,
-		#footer {
-			background: pink;
-			min-width: 600px;
-			text-align: center;
-			height: 20px;
-		}
+      #content {
+        min-width: 200px;
+        padding: 0 200px;
+        overflow: hidden;
+      }
 
-		#content {
-			padding: 0 200px;
-			min-width: 200px;
-			overflow: hidden;
-		}
+      #content .middle,
+      #content .left,
+      #content .right {
+        float: left;
+        padding-bottom: 1000px;
+        margin-bottom: -1000px;
+      }
 
-		#content .middle,
-		#content .left,
-		#content .right {
-			float: left;
-			padding-bottom: 1000px;
-			margin-bottom: -1000px;
-		}
+      #content .left,
+      #content .right {
+        position: relative;
+        width: 200px;
+        background: hotpink;
+      }
 
-		#content .middle {
-			background: deeppink;
-			width: 100%;
-		}
+      #content .middle {
+        width: 100%;
+        background: deeppink;
+      }
 
-		#content .left {
-			background: hotpink;
-			width: 200px;
-			margin-left: -100%;
-			position: relative;
-			left: -200px;
-		}
+      #content .left {
+        margin-left: -100%;
+        left: -200px;
+      }
 
-		#content .right {
-			background: hotpink;
-			width: 200px;
-			margin-left: -200px;
-			position: relative;
-			left: 200px;
-		}
+      #content .right {
+        margin-left: -200px;
+        left: 200px;
+      }
 
-		.clearfix:before,
-		.clearfix:after {
-			content: "";
-			display: table;
-			clear: both;
-		}
+      .clearfix {
+        *zoom: 1;
+      }
+      .clearfix:before,
+      .clearfix:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+    </style>
+  </head>
 
-		.clearfix {
-			*zoom: 1
-		}
-	</style>
-</head>
-
-<body>
-	<!--
+  <body>
+    <!--
 			1.两边固定 当中自适应
 			2.当中列要完整显示
 			3.当中列要优先加载
 		-->
-	<div id="header">header</div>
-	<div id="content" class="clearfix">
-		<div class="middle">
-			middle<br />
-			middle<br />
-			middle<br />
-			middle<br />
-			middle<br />
-		</div>
-		<div class="left">
-			left<br />
-			left<br />
-			left<br />
-			left<br />
-		</div>
-		<div class="right">right</div>
-	</div>
-	<div id="footer">footer</div>
-</body>
-
+    <div id="header">header</div>
+    <div id="content" class="clearfix">
+      <div class="middle">
+        middle<br />
+        middle<br />
+        middle<br />
+        middle<br />
+        middle<br />
+      </div>
+      <div class="left">
+        left<br />
+        left<br />
+        left<br />
+        left<br />
+      </div>
+      <div class="right">right</div>
+    </div>
+    <div id="footer">footer</div>
+  </body>
 </html>

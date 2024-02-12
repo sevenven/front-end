@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>line-height继承</title>
+    <style type="text/css">
+      /* 
+			 * 被继承元素写具体的值 如30px 则继承该值
+			 * 被继承的元素写比例 如2|1.5 则继承该比例
+			 * 被继承元素写百分比 如200% 则继承算出来的值
+			 */
+      #wrap {
+        font-size: 30px;
+        line-height: 1;
+      }
+      #inner {
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrap">
+      <div id="inner">seven</div>
+    </div>
+  </body>
+</html>

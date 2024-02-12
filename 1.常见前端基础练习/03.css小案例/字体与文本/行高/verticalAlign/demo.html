@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>demo</title>
+
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      div {
+        border: 1px solid black; /*给父元素添加一个边框，便于辨认*/
+        width: 1000px;
+        font-size: 20px; /*设置大号字体，便于比较*/
+      }
+
+      div > #span1 {
+        vertical-align: bottom;
+        background-color: yellow; /*给span元素设置一背景色，便于辨认*/
+      }
+
+      div > img#img1 {
+        width: 150px;
+        vertical-align: bottom;
+      }
+
+      div > #span2 {
+        display: inline-block;
+        height: 80px;
+        line-height: 80px;
+        background-color: yellow; /*给span元素设置一背景色，便于辨认*/
+      }
+
+      div > img#img2 {
+        width: 250px;
+        vertical-align: middle;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <span id="span1">Writing</span>
+      <img id="img1" src="../images/1.jpg" />
+      <span id="span2">span元素</span>
+      <img id="img2" src="../images/2.jpg" />
+    </div>
+  </body>
+</html>
