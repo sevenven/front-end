@@ -1,43 +1,48 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>1物理像素</title>
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+      }
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width" />
-  <title>1物理像素</title>
-  <style type="text/css">
-    * {
-      margin: 0;
-      padding: 0;
-    }
+      #test {
+        width: 3.75rem;
+        height: 0.2rem;
+        margin-top: 0.15rem;
+        border-top: 0.01rem solid deeppink;
+      }
+    </style>
+  </head>
 
-    #test {
-      width: 7.5rem;
-      height: 0.4rem;
-      margin-top: 0.3rem;
-      border-top: 1px solid deeppink;
-    }
-  </style>
-</head>
+  <body>
+    <div id="test"></div>
+    <script type="text/javascript">
+      window.onload = function () {
+        (function () {
+          var dpr = window.devicePixelRatio || 1;
+          var styleNode = document.createElement("style");
+          var w = (document.documentElement.clientWidth * dpr) / 3.75;
+          styleNode.innerHTML = "html{font-size:" + w + "px!important}";
+          document.head.appendChild(styleNode);
 
-<body>
-  <div id="test"></div>
-  <script type="text/javascript">
-    window.onload = function () {
-      (function () {
-        var dpr = window.devicePixelRatio || 1;
-        var styleNode = document.createElement("style");
-        var w = document.documentElement.clientWidth * dpr / 7.5;
-        styleNode.innerHTML = "html{font-size:" + w + "px!important}";
-        document.head.appendChild(styleNode);
-        
-        // 不好 更改了适配方案
-        var scale = 1 / dpr;
-        var meta = document.querySelector("meta[name='viewport']");
-        meta.content = "width=device-width,initial-scale=" + scale + ",minimum-scale=" + scale + ",maximum-scale=" + scale + ",user-scalable=no";
-      })()
-    }
-  </script>
-</body>
-
+          // 不好 更改了适配方案
+          var scale = 1 / dpr;
+          var meta = document.querySelector("meta[name='viewport']");
+          meta.content =
+            "width=device-width,initial-scale=" +
+            scale +
+            ",minimum-scale=" +
+            scale +
+            ",maximum-scale=" +
+            scale +
+            ",user-scalable=no";
+        })();
+      };
+    </script>
+  </body>
 </html>

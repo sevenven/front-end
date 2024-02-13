@@ -1,59 +1,63 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport"
-    content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-  <title>1物理像素</title>
-  <style type="text/css">
-    * {
-      margin: 0;
-      padding: 0;
-    }
-
-    #test {
-      position: relative;
-      width: 7.5rem;
-      height: 0.4rem;
-      margin-top: 0.3rem;
-    }
-
-    #test::before {
-      content: "";
-      position: absolute;
-      width: 100%;
-      top: 0px;
-      height: 1px;
-      background: deeppink;
-    }
-
-    @media only screen and (-webkit-device-pixel-ratio:2) { /* 推荐 */
-      #test::before {
-        transform: scaleY(.5);
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
+    />
+    <title>1物理像素</title>
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
       }
-    }
 
-    @media only screen and (-webkit-device-pixel-ratio:3) {
-      #test::before {
-        transform: scaleY(.33333333333);
+      #test {
+        position: relative;
+        width: 3.75rem;
+        height: 0.2rem;
+        margin-top: 0.15rem;
       }
-    }
-  </style>
-</head>
 
-<body>
-  <div id="test"></div>
-  <script type="text/javascript">
-    (function () {
-      var styleNode = document.createElement("style");
-      // 一个布局视口宽度 = 7.5rem
-      // 相当于设计图的宽度是 7.5rem
-      // 所以元素的宽度设置是 （元素宽度 / 设计图宽度）* 7.5rem
-      styleNode.innerHTML = "html{font-size:" + (document.documentElement.clientWidth / 7.5) + "px!important}"; // 一个布局视口宽度 = 7.5rem
-      document.head.appendChild(styleNode);
-    })()
-  </script>
-</body>
+      #test::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        top: 0px;
+        height: 0.01rem;
+        background: deeppink;
+      }
 
+      @media only screen and (-webkit-device-pixel-ratio: 2) {
+        /* 推荐 */
+        #test::before {
+          transform: scaleY(0.5);
+        }
+      }
+
+      @media only screen and (-webkit-device-pixel-ratio: 3) {
+        #test::before {
+          transform: scaleY(0.33333333333);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="test"></div>
+    <script type="text/javascript">
+      (function () {
+        var styleNode = document.createElement("style");
+        // 假设 设计图以iPhone6做基准 宽度是375px 为了方便计算 一般把设计图分成3.75份 此时1rem = 100px
+        // 此时1rem = 100px 在iPhone6中将html的font-size设置为100px
+        // 其他设备上等比设置为 (document.documentElement.clientWidth / 375) * 100
+        styleNode.innerHTML =
+          "html{font-size:" +
+          (document.documentElement.clientWidth / 375) * 100 +
+          "px!important}"; // 一个布局视口宽度 = 7.5rem
+        document.head.appendChild(styleNode);
+      })();
+    </script>
+  </body>
 </html>

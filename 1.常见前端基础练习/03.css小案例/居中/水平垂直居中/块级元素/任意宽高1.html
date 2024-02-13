@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>任意宽高块级元素水平垂直居中</title>
+    <!--
+		绝对定位盒子的特性: 宽高由内容撑开
+			水平方向上: left + right + width + padding + margin = 包含块padding区域的尺寸
+						 		 0      0       100     0        auto(平分剩下)        400
+			垂直方向上: top + bottom + height + padding + margin = 包含块padding区域的尺寸
+						 		 0      0       100     0        auto	(平分剩下)		    600
+		-->
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      #wrap {
+        height: 200px;
+        background: pink;
+
+        position: relative;
+      }
+
+      #inner {
+        width: 100px;
+        height: 100px;
+        background: salmon;
+
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="wrap">
+      <div id="inner"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>固定宽高块级元素水平居中</title>
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      #wrap {
+        height: 200px;
+        background: pink;
+
+        position: relative;
+      }
+
+      #inner {
+        width: 100px;
+        height: 100px;
+        background: salmon;
+
+        position: absolute;
+        left: 50%;
+        margin-left: -50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrap">
+      <div id="inner"></div>
+    </div>
+  </body>
+</html>

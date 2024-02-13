@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>2.三列布局(float版)</title>
+    <title>7.两列布局</title>
     <style type="text/css">
       * {
         margin: 0;
@@ -10,44 +10,28 @@
       }
 
       body {
-        /*2*left+right*/
         min-width: 600px;
       }
 
-      #left,
-      #right,
-      #middle {
+      div {
         height: 200px;
       }
 
-      #left,
-      #right {
+      #left {
         width: 200px;
         background: pink;
-      }
-
-      #middle {
-        background: hotpink;
-      }
-
-      #left {
         float: left;
       }
 
       #right {
-        float: right;
+        background: salmon;
+        overflow: hidden;
       }
     </style>
   </head>
 
   <body>
-    <!--
-			1.两边固定 当中自适应
-			2.当中列要完整显示
-		-->
-    <!--缺点：网页加载时先加载两边 再加载当中列 用户体验不好-->
     <div id="left">left</div>
     <div id="right">right</div>
-    <div id="middle">middle</div>
   </body>
 </html>

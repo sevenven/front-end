@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>1.三列布局(position版)</title>
+    <title>绝对定位布局</title>
     <style type="text/css">
       * {
         margin: 0;
@@ -20,14 +20,16 @@
       }
       #left,
       #right {
-        position: absolute;
-        top: 0;
         width: 200px;
         background: pink;
+
+        position: absolute;
+        top: 0;
       }
       #middle {
         width: auto;
-        background: hotpink;
+        background: salmon;
+
         padding: 0 200px;
       }
       #left {

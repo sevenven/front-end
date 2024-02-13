@@ -4,16 +4,18 @@ function setHexToRgb(str) {
   let _str = str.toLowerCase().replace(/\#/, "");
   if (_str.length === 3) {
     let temp = "";
-    for (let i = 0; i < 3; i++) temp += newStr.slice(i, i + 1).repet(2);
+    for (let i = 0; i < 3; i++) temp += _str.slice(i, i + 1).repeat(2);
     _str = temp;
   }
   const arr = [];
   for (let i = 0; i < 6; i = i + 2)
-    arr.push(parseInt("0x" + _str.slice(i, i + 2)));
+    arr.push(parseInt(_str.slice(i, i + 2), 16));
   return `rgb(${arr.join(", ")})`;
 }
 
 console.log(setHexToRgb("#FF3B4C")); // rgb(255, 59, 76)
+console.log(setHexToRgb("#f00")); // rgb(255, 0, 0)
+
 /*
  * 正则表达式解析
  * ^ 匹配字符串开始

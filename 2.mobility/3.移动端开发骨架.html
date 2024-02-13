@@ -1,101 +1,81 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
+    />
+    <meta name="format-detection" content="telephone=no,email=no" />
+    <title>移动端开发骨架</title>
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .page {
+        height: 100vh;
+      }
+      .box > .item {
+        font-size: 0.16rem;
+      }
+    </style>
+  </head>
 
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport"
-		content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-	<meta name="format-detection" content="telephone=no,email=no" />
-	<title>移动端开发骨架</title>
-	<style type="text/css">
-		* {
-			margin: 0;
-			padding: 0;
-		}
-		.page {
-			height: 100vh;
-			padding-top: 100px;
-			
-		}
-		.box {
-			width: 200px;
-			height: 200px;
-			border: 2px solid #ccc;
-			border-radius: 10px;
-			padding: 20px;
-			display: flex;
-			flex-wrap: wrap;
-			/* justify-content: space-between; */
-		 
-		}
-		.item {
-			width: 50px;
-			height: 50px;
-			margin-right: 10px;
-			/* border-radius: 50%; */
-			background-color: #666;
-		}
-		.item:nth-child(2) {
-			/* align-self: center; */
-		}
-		.item:nth-child(3) {
-			/* align-self: flex-end; */
-		}
-	</style>
-</head>
-
-<body>
-	<div class="page">
-		<div class="box">
-			<div class="item"></div>
-			<div class="item"></div>
-			<div class="item"></div>
-			<div class="item"></div>
-			<div class="item"></div>
-			<div class="item"></div>
-		</div>
-	</div>
-	<script type="text/javascript">
-		window.onload = function () {
-			/*
+  <body>
+    <div class="page">
+      <div class="box">
+        <div class="item">item</div>
+        <div class="item">item</div>
+        <div class="item">item</div>
+        <div class="item">item</div>
+        <div class="item">item</div>
+        <div class="item">item</div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      window.onload = function () {
+        /*
 			原理：改变了一个元素在不同设备上占据的css像素的个数
 			rem适配的优缺点
 				优点:没有破坏完美视口
 				缺点:px值到rem的转换太复杂
 			*/
-			!(function () {
-				var styleNode = document.createElement("style");
-				// 一个布局视口宽度 = 7.5rem
-				// 相当于设计图的宽度是 7.5rem
-				// 所以元素的宽度设置是 （元素宽度 / 设计图宽度）* 7.5rem
-				styleNode.innerHTML = "html{font-size:" + (document.documentElement.clientWidth / 7.5) + "px!important}"; // 一个布局视口宽度 = 7.5rem
-				document.head.appendChild(styleNode);
-			})();
+        (function () {
+          var styleNode = document.createElement("style");
+          // 假设 设计图以iPhone6做基准 宽度是375px 为了方便计算 一般把设计图分成3.75份 此时1rem = 100px
+          // 此时1rem = 100px 在iPhone6中将html的font-size设置为100px
+          // 其他设备上等比设置为 (document.documentElement.clientWidth / 375) * 100
+          styleNode.innerHTML =
+            "html{font-size:" +
+            (document.documentElement.clientWidth / 375) * 100 +
+            "px!important}"; // 一个布局视口宽度 = 7.5rem
+          document.head.appendChild(styleNode);
+        })();
 
-			var page = document.querySelector(".page");
-			page.addEventListener("touchstart", function (ev) {
-				ev = ev || event;
-				// 禁掉文字选中的默认行为 以及下拉的系统橡皮筋效果
-				ev.preventDefault();
-			})
+        var page = document.querySelector(".page");
+        page.addEventListener("touchstart", function (ev) {
+          ev = ev || event;
+          // 禁掉文字选中的默认行为 以及下拉的系统橡皮筋效果
+          ev.preventDefault();
+        });
 
-			// 禁止掉默认行为后，对于a标签跳转需要自己手动写一下
-			var aNodes = document.getElementsByTagName("a");
-			for (var i = 0; i < aNodes.length; i++) {
-				aNodes[i].addEventListener("touchstart", function () {
-					this.isMoved = false;
-				});
-				aNodes[i].addEventListener("touchmove", function () {
-					this.isMoved = true;
-				});
-				aNodes[i].addEventListener("touchend", function () {
-					if (!this.isMoved) {
-						location.href = this.href;
-					}
-				});
-			}
-		}
-	</script>
-</body>
-
+        // 禁止掉默认行为后，对于a标签跳转需要自己手动写一下
+        var aNodes = document.getElementsByTagName("a");
+        for (var i = 0; i < aNodes.length; i++) {
+          aNodes[i].addEventListener("touchstart", function () {
+            this.isMoved = false;
+          });
+          aNodes[i].addEventListener("touchmove", function () {
+            this.isMoved = true;
+          });
+          aNodes[i].addEventListener("touchend", function () {
+            if (!this.isMoved) {
+              location.href = this.href;
+            }
+          });
+        }
+      };
+    </script>
+  </body>
 </html>

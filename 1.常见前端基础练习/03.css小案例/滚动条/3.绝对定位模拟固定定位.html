@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>3.绝对定位模拟固定定位</title>
-		<style type="text/css">
-			*{
-				margin: 0;
-				padding: 0;
-			}
-			html{
-				height: 100%;
-				overflow: hidden;
-				border: 1px solid deeppink;
-			}
-			body{
-				height: 100%;
-				overflow: auto;
-				border: 1px solid pink;
-			}
-			.fixed{
-				position: absolute;
-				top: 0;
-				left: 0;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="fixed">固定</div>
-		<div style="height: 1200px;">
-		</div>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>3.绝对定位模拟固定定位</title>
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        height: 100%;
+        overflow: hidden;
+      }
+      body {
+        height: 100%;
+        border: 1px solid pink;
+
+        overflow: auto;
+      }
+      .box {
+        height: 1200px;
+      }
+      .fixed {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box"></div>
+    <div class="fixed">绝对定位<br />模拟固定定位</div>
+  </body>
 </html>

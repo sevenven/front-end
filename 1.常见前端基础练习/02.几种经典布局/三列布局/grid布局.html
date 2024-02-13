@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>grid布局</title>
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        /*2*left+right*/
+        min-width: 600px;
+        display: grid;
+        grid-template-columns: 200px 1fr 200px;
+      }
+
+      #left,
+      #right,
+      #middle {
+        height: 200px;
+      }
+
+      #left,
+      #right {
+        background: pink;
+      }
+
+      #middle {
+        background: salmon;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="left">left</div>
+    <div id="middle">middle</div>
+    <div id="right">right</div>
+  </body>
+</html>

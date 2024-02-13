@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>flex布局</title>
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        /*2*left+right*/
+        min-width: 600px;
+        display: flex;
+      }
+
+      #left,
+      #right,
+      #middle {
+        height: 200px;
+      }
+
+      #left,
+      #right {
+        width: 200px;
+        background: pink;
+
+        flex-shrink: 0;
+      }
+
+      #middle {
+        flex: 1;
+        background: salmon;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="left">left</div>
+    <div id="middle">middle</div>
+    <div id="right">right</div>
+  </body>
+</html>
