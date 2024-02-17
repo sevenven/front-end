@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>抽奖</title>
+  </head>
+
+  <body>
+    <button id="btn">点击抽奖</button>
+    <script>
+      function rand(n, m) {
+        return Math.ceil(Math.random() * (m - n + 1)) + n - 1;
+      }
+      const btn = document.querySelector("#btn");
+      btn.addEventListener("click", function () {
+        // 回调形式
+        // setTimeout(() => {
+        //   let n = rand(1, 100);
+        //   if (n <= 30) {
+        //     alert('中奖了');
+        //   } else {
+        //     alert('再接再厉');
+        //   }
+        // }, 1000);
+        // promise形式
+        const p = new Promise((resolve, reject) => {
+          setTimeout(() => {
+            let n = rand(1, 100);
+            if (n <= 30) {
+              resolve(n); // 将promise对象的状态设置为【成功】
+            } else {
+              reject(n); // 将promise对象的状态设置为【失败】
+            }
+          }, 1000);
+        });
+        p.then(
+          (value) => {
+            // resolve回调
+            alert(`中奖了，中奖号码为${value}`);
+          },
+          (reason) => {
+            // reject回调
+            alert(`再接再厉，号码为${reason}`);
+          }
+        );
+      });
+    </script>
+  </body>
+</html>
