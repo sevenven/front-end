@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Promise-imitation</title>
+  </head>
+
+  <body>
+    <script src="./promiseClass.js"></script>
+    <script>
+      const p = new Promise((resolve, reject) => {
+        resolve("success");
+      });
+
+      const p1 = p
+        .then((value) => {
+          return "success";
+        })
+        .then((value) => {
+          // return Promise.resolve('success')
+          return Promise.reject("fail");
+        })
+        .then((value) => {
+          throw "error";
+        });
+
+      console.log(p);
+      console.log(p1);
+
+      const p2 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve("success");
+        }, 100);
+      });
+
+      const p3 = Promise.resolve("success");
+      const p4 = Promise.reject("fail");
+
+      console.log(Promise.all([p, p2, p3]));
+      console.log(Promise.race([p, p2, p3]));
+    </script>
+  </body>
+</html>

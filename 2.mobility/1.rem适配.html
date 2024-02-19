@@ -35,8 +35,8 @@
        */
       (function () {
         var styleNode = document.createElement("style");
-        // 假设 设计图以iPhone6做基准 宽度是375px 为了方便计算 一般把设计图分成3.75份 此时1rem = 100px
-        // 此时1rem = 100px 在iPhone6中将html的font-size设置为100px
+        // 假设 设计图以iPhone6做基准 宽度是375px 为了方便计算 一般把设计图分成3.75份 1份为100px
+        // 在iPhone6中将html的font-size设置为100px 此时1rem = 100px
         // 其他设备上等比设置为 (document.documentElement.clientWidth / 375) * 100
         styleNode.innerHTML =
           "html{font-size:" +

@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>4.伪等高布局</title>
+    <title>伪等高布局</title>
     <style type="text/css">
       * {
         padding: 0;
@@ -11,22 +11,22 @@
       #wrap {
         width: 800px;
         margin: 0 auto;
-        border: 1px solid #f00;
+
         overflow: hidden;
       }
       #wrap .left,
       #wrap .right {
         float: left;
-        padding-bottom: 1000px;
-        margin-bottom: -1000px;
+        padding-bottom: 10000px;
+        margin-bottom: -10000px;
       }
       #wrap .left {
         width: 200px;
         background: pink;
       }
       #wrap .right {
-        width: 500px;
-        background: hotpink;
+        width: 600px;
+        background: salmon;
       }
       .clearfix:before,
       .clearfix:after {
@@ -51,6 +51,11 @@
         left <br />
       </div>
       <div class="right">
+        right <br />
+        right <br />
+        right <br />
+        right <br />
+        right <br />
         right <br />
         right <br />
         right <br />

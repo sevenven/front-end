@@ -1,10 +1,10 @@
-// 16进制转换为RGB
+// RGB转换为16进制
 function setRgbToHex(str) {
   if (!/^(rgb|RGB)/.test(str)) return;
   const arr = str.slice(4, str.length - 1).split(", ");
   let _str = "#";
   for (a of arr) {
-    let temp = Number(a).toString(16);
+    let temp = Number(a).toString(16).toUpperCase();
     if (temp === "0") temp = temp.repeat(2);
     _str += temp;
   }
