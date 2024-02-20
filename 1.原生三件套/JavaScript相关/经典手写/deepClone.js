@@ -13,11 +13,12 @@ const obj = {
 };
 
 // 方案一
+// 检测不到Symbol变量 无法copy[set&map]
 // const obj2 = JSON.parse(JSON.stringify(obj));
-// obj2.address.city = "mianyang"
+// obj2.address.city = "mianyang";
 
-// console.log(obj)
-// console.log(obj2)
+// console.log(obj);
+// console.log(obj2);
 
 // 方案二
 /**
@@ -26,22 +27,21 @@ const obj = {
  */
 function deepClone(obj) {
   if (typeof obj !== "object" || obj == null) return obj;
-
-  let result;
+  let copyObj;
   if (obj instanceof Array) {
-    result = [];
-    for (let i = 0; i < obj.length; i++) result[i] = deepClone(obj[i]);
+    copyObj = [];
+    for (let i = 0; i < obj.length; i++) copyObj[i] = deepClone(obj[i]);
   } else if (obj instanceof Set) {
-    result = new Set([...obj]);
+    copyObj = new Set([...obj]);
   } else if (obj instanceof Map) {
-    result = new Map([...obj]);
+    copyObj = new Map([...obj]);
   } else {
-    result = {};
+    copyObj = {};
     Reflect.ownKeys(obj).forEach((key) => {
-      result[key] = deepClone(obj[key]);
+      copyObj[key] = deepClone(obj[key]);
     });
   }
-  return result;
+  return copyObj;
 }
 
 const obj3 = deepClone(obj);

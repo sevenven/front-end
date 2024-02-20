@@ -1,45 +1,34 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>微任务与宏任务</title>
-    <style type="text/css">
-      * {
-        margin: 0;
-        padding: 0;
-      }
-    </style>
+    <title>节流防抖</title>
+    <style type="text/css"></style>
   </head>
 
   <body>
     <div id="app">
-      <h1>JS 异步Demo</h1>
+      <h1>JS 节流防抖Demo</h1>
+      <div style="height: 15000px"></div>
     </div>
     <script type="text/javascript">
-      for (let i = 0; i < 5; i++) {
-        let p = document.createElement("p");
-        p.innerHTML = `item ${i}`;
-        document.getElementById("app").append(p);
+      function debounce(fn, delay) {
+        let timer = null;
+        return (...args) => {
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(() => {
+            fn(...args);
+            timer = null;
+          }, delay);
+        };
       }
 
-      // 微任务：DOM渲染前触发
-      Promise.resolve().then(() => {
+      window.onscroll = debounce((e) => {
         console.log(
-          "micro task",
-          document.getElementById("app").children.length
+          "scrollTop",
+          document.body.scrollTop || document.documentElement.scrollTop
         );
-        alert("Promise then"); // DOM未渲染
-      });
-      // 宏任务：DOM渲染后触发
-      setTimeout(() => {
-        console.log(
-          "macro task",
-          document.getElementById("app").children.length
-        );
-        alert("setTimeout callback"); // DOM已渲染--实际运行的时候没有
-      }, 1000);
-      console.log("script end", document.getElementById("app").children.length);
-      // aler会阻断js执行，也会阻断DOM渲染，便于查看效果
-      alert("本次call stack结束，DOM结构已更新，但尚未触发渲染");
+        console.log("e.target", e.target);
+      }, 500);
     </script>
   </body>
 </html>

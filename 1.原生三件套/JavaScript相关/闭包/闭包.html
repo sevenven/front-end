@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>闭包</title>
+    <style type="text/css"></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <h1>JS 闭包Demo</h1>
+    </div>
+    <script type="text/javascript">
+      function foo() {
+        let a = 100;
+        return () => {
+          let b = 200;
+          return [a, b];
+        };
+      }
+      const bar = foo();
+      debugger;
+    </script>
+  </body>
+</html>

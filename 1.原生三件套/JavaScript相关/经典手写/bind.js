@@ -3,21 +3,19 @@
 // 3.返回的函数可以new
 
 // 模拟Function.prototype.bind
-Function.prototype.bind2 = function (ctx) {
-  var _self = this,
-    args1 = Array.prototype.slice.call(arguments, 1),
+Function.prototype.myBind = function (ctx, ...args) {
+  const func = this,
     noop = function () {};
-  var bindFn = function () {
-    var args2 = Array.prototype.slice.call(arguments);
-    return _self.apply(this instanceof _self ? this : ctx, args1.concat(args2));
-  };
   noop.prototype = this.prototype;
+  const bindFn = function (...moreArgs) {
+    return func.apply(ctx || window, args.concat(moreArgs));
+  };
   bindFn.prototype = new noop();
   return bindFn;
 };
 
 var name = "seven-window";
-var foo = {
+const foo = {
   name: "seven",
 };
 function bar(age, gender) {
@@ -28,8 +26,7 @@ bar.prototype.sayHi = function () {
   console.log("Hi~");
 };
 
-var barFoo = bar.bind2(foo, 25);
-console.log(barFoo("female"));
-console.log("------------------------");
-var bf = new barFoo("female");
+const barFoo = bar.myBind(foo, 25);
+barFoo("female");
+const bf = new barFoo("female");
 bf.sayHi();
