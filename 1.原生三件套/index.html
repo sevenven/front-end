@@ -1,34 +1,27 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>节流防抖</title>
+    <title>乱七八糟分享</title>
     <style type="text/css"></style>
   </head>
 
   <body>
     <div id="app">
-      <h1>JS 节流防抖Demo</h1>
-      <div style="height: 15000px"></div>
+      <h1>JS 乱七八糟分享Demo</h1>
+      <button id="btn1">btn1</button>
+      <button id="btn2" onclick="clear1()">btn2</button>
+      <button id="btn3" onclick="alert(1234)">btn3</button>
     </div>
     <script type="text/javascript">
-      function debounce(fn, delay) {
-        let timer = null;
-        return (...args) => {
-          if (timer) clearTimeout(timer);
-          timer = setTimeout(() => {
-            fn(...args);
-            timer = null;
-          }, delay);
-        };
+      var a = 1;
+
+      function clear1() {
+        console.log("执行了clear1函数", arguments.callee);
       }
 
-      window.onscroll = debounce((e) => {
-        console.log(
-          "scrollTop",
-          document.body.scrollTop || document.documentElement.scrollTop
-        );
-        console.log("e.target", e.target);
-      }, 500);
+      btn1.onclick = function () {
+        clear1();
+      };
     </script>
   </body>
 </html>

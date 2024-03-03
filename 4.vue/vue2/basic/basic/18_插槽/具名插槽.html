@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>具名插槽</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器-->
+    <div id="root">
+      <Child :url="website.url">
+        <template #default>
+          <div>{{website.title}}</div>
+        </template>
+        <template #footer>
+          <div>footer</div>
+        </template>
+      </Child>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; // 阻止 vue 在启动时生成生产提示。
+    Vue.component("child", {
+      props: {
+        url: {
+          type: String,
+        },
+      },
+      template: `<div>
+									<a :href="url">
+										<slot>默认插槽</slot>
+									</a>
+									<slot name="footer">具名插槽</slot>
+								</div>`,
+    });
+
+    new Vue({
+      el: "#root",
+      data: {
+        website: {
+          title: "百度一下，你就知道",
+          url: "https://www.baidu.com/",
+        },
+      },
+    });
+  </script>
+</html>

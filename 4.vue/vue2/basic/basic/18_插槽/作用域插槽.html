@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>作用域插槽</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器-->
+    <div id="root">
+      <Child>
+        <template #default="website">
+          <a :href="website.url">{{ website.title }}</a>
+        </template>
+        <template #footer="{website}">
+          <div>
+            <div>footer</div>
+            <div>{{website.title}}</div>
+            <div>{{website.url}}</div>
+          </div>
+        </template>
+      </Child>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; // 阻止 vue 在启动时生成生产提示。
+    Vue.component("child", {
+      data() {
+        return {
+          website: {
+            title: "百度一下，你就知道",
+            url: "https://www.baidu.com/",
+          },
+        };
+      },
+      template: `<div>
+									<slot :title="website.title" :url="website.url">默认插槽</slot>
+									<slot name="footer" :website="website">具名插槽</slot>
+								</div>`,
+    });
+    new Vue({
+      el: "#root",
+    });
+  </script>
+</html>
