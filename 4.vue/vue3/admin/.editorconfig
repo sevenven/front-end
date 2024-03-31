@@ -1,0 +1,10 @@
+root = true # 控制配置文件 .editorconfig 是否生效的字段
+[**] # 匹配全部文件
+charset = utf-8 # 设置字符集
+indent_style = tab # 缩进风格，可选space｜tab
+indent_size = 2 # 缩进的空格数
+trim_trailing_whitespace = true # 保存时删除行尾空格
+insert_final_newline = true # 保存时会在文件末尾添加空白行结尾
+end_of_line = lf # 换行符类型 = lf
+[*.md] # 匹配markdown文件
+trim_trailing_whitespace = false # 删除行尾空格 = 否

@@ -1,0 +1,13 @@
+Vue3 + Typescript + Vite
+
+package.json
+pnpm init
+
+创建src及其子目录
+
+安装依赖
+pnpm add vue vue-router pinia pinia-plugin-persistedstate nprogress axios
+pnpm add element-plus
+pnpm add typescript less -D
+pnpm add vite @vitejs/plugin-vue @vitejs/plugin-vue-jsx -D
+pnpm add @types/node @types/nprogress vue-tsc

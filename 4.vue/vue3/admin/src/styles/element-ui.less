@@ -1,0 +1,47 @@
+// 变更部分el变量 配置主题色
+:root {
+	--el-fill-color-blank: var(seven-backgroud-color);
+	--el-text-color-primary: var(seven-color-dark-black);
+	--el-bg-color: var(seven-backgroud-color);
+}
+
+// 修改 el-button--primary 主题色
+.el-button--primary {
+	--el-color-primary: var(seven-color-main);
+}
+
+.el-button--primary:hover,
+.el-button--primary:focus {
+	--el-button-hover-border-color: var(seven-color-main-light-1);
+	--el-button-hover-bg-color: var(seven-color-main-light-1);
+}
+
+.el-button--primary:active {
+	--el-button-active-border-color: var(seven-color-main);
+	--el-button-active-bg-color: var(seven-color-main);
+}
+
+// 修改 menu--horizontal 激活主题色
+.el-menu.el-menu--horizontal > .el-menu-item.is-active {
+	border-bottom: 2px solid var(seven-color-main);
+	color: var(seven-color-main) !important;
+}
+
+.el-menu.el-menu--horizontal .el-menu-item:not(.is-disabled):focus,
+.el-menu.el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
+	color: var(seven-color-main);
+	background-color: var(seven-color-main-light-2);
+}
+
+// 修改 el-switch--large 主题色
+.el-switch.is-checked.el-switch--large .el-switch__core {
+	border-color: var(seven-color-main);
+	background-color: var(seven-color-main);
+}
+
+// 更改 el-input 获取焦点后的主题色
+.el-input {
+	.el-input__wrapper.is-focus {
+		box-shadow: 0 0 0 1px var(seven-color-main) inset;
+	}
+}

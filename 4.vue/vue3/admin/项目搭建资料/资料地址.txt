@@ -1,0 +1,16 @@
+
+
+视频配套的所有语雀资料   
+
+企业级中台系统语雀资料地址：
+链接: https://pan.baidu.com/s/1Aliah3iPwZaLEbcVlFnKfA?pwd=icpn 提取码: icpn  
+
+从0开发一个脚手架的语雀资料 
+链接: https://pan.baidu.com/s/1YNM_aDn8DzIVQzvS7Oenlw?pwd=dqsp 提取码: dqsp
+（记得下载下来 用vscode打开 这个是markdown文件）
+
+企业中台系统代码库地址：https://gitee.com/sohucw/admin-pro
+注意分支：分支在视频里面有说明
+
+脚手架代码库地址：https://github.com/sohucw/dawei-cli
+因为要发布到npm官网(https://www.npmjs.com/)上面， 代码必须上传到github上
