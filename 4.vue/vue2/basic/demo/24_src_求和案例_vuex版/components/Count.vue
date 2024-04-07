@@ -18,7 +18,7 @@ export default {
   name: "Count",
   data() {
     return {
-      n: 1, //用户选择的数字
+      n: 1, // 用户选择的数字
     };
   },
   methods: {

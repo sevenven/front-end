@@ -45,7 +45,7 @@ const mutations = {
 };
 // 准备state——用于存储数据
 const state = {
-  sum: 0, //当前的和
+  sum: 0, // 当前的和
   school: "尚硅谷",
   subject: "前端",
   personList: [{ id: "001", name: "张三" }],

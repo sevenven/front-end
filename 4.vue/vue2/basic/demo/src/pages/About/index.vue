@@ -6,12 +6,12 @@
 export default {
   name: "About",
   mounted() {
-    console.log("About组件挂载完毕了", this);
-    window.aboutRoute = this.$route;
+    console.log("About组件 mounted", this);
     window.aboutRouter = this.$router;
+    window.aboutRoute = this.$route;
   },
   beforeDestroy() {
-    console.log("About组件即将被销毁了");
+    console.log("About组件 beforeDestroy");
   },
 };
 </script>

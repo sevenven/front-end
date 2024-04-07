@@ -9,6 +9,7 @@ import About from "../pages/About/index.vue";
 
 // 创建并暴露一个路由器
 export default new VueRouter({
+  mode: "history",
   // 路由
   routes: [
     {
